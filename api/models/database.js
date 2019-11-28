@@ -4,10 +4,15 @@ mongoose.Promise = global.Promise;
 const dbName = "db_project";
 const dbURL = `mongodb://localhost:27017/${dbName}`;
 
+//console.log(dbURL);
+
+
 // connection
 mongoose.connect(dbURL, {
-    useNewUrlParser: true
+  useNewUrlParser: true
 });
+
+const db = mongoose.connection;
 
 db.on('error', console.error.bind(console, 'Database connection error'));
 
@@ -16,3 +21,4 @@ db.once('open', function() {
 });
 
 module.exports = mongoose.connection;
+//module.exports = dbURL;
