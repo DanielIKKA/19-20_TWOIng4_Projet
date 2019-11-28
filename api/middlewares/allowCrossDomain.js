@@ -1,4 +1,5 @@
 // TODO: Find source
+//but : faire passer les infos du back au front sans avoir de pb
 
 module.exports = function(req, res, next) {
     res.header('Access-Control-Allow-Origin', "*");

@@ -9,9 +9,9 @@ let app_api = express();
 app_api.use(require('./middlewares/allowCrossDomain'));
 
 //define routes
-let usersRouter = require('./routes/users');
-let sensorsRouter = require('./routes/sensors');
-let mesuresRouter = require('./routes/mesures');
+let usersRouter = require('./routes/users.route');
+let sensorsRouter = require('./routes/sensors.route');
+let mesuresRouter = require('./routes/mesures.route');
 app_api.use(API_URI, moviesRouter);
 app_api.use(API_URI, sensorsRouter);
 app_api.use(API_URI, mesuresRouter);
