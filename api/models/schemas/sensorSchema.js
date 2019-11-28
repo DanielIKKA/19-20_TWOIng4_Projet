@@ -5,13 +5,12 @@ const sensorSchema = new mongoose.Schema(
         location: {
             type: String,
             required: true,
-        }
-    },{
-        timestamps : 
-        {
-            createdAt : "creationDate"
+        },
+        creationDate: {
+            type: Date,
+            default: Date.now
         }
     }
     );
 
-module.exports = mongoose.model('user', userSchema);
+module.exports = mongoose.model('sensor', sensorSchema);

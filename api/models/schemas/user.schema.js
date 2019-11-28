@@ -6,7 +6,7 @@ const userSchema = new mongoose.Schema({
         required: true,
     },
     personsInHouse : {
-        type: Int,
+        type: Number,
         required: true,
     },
     houseSize : {

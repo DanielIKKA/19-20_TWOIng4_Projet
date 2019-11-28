@@ -12,7 +12,7 @@ app_api.use(require('./middlewares/allowCrossDomain'));
 let usersRouter = require('./routes/users.route');
 let sensorsRouter = require('./routes/sensors.route');
 let mesuresRouter = require('./routes/mesures.route');
-app_api.use(API_URI, moviesRouter);
+app_api.use(API_URI, usersRouter);
 app_api.use(API_URI, sensorsRouter);
 app_api.use(API_URI, mesuresRouter);
 
