@@ -16,6 +16,9 @@ app_api.use(API_URI, usersRouter);
 app_api.use(API_URI, sensorsRouter);
 app_api.use(API_URI, mesuresRouter);
 
+//db connection
+let db = require('./models/database');
+
 //define port listener
 app_api.listen(3000);
 
