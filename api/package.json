@@ -1,0 +1,20 @@
+{
+  "name": "api-rest",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  
+  "scripts": {
+    "start": "nodemon app.js"
+  },
+  
+  "author": "DanielIK",
+  "license": "ISC",
+  
+  "dependencies": {
+    "express": "^4.17.1",
+    "lodash": "^4.17.15",
+    "mongoose": "^5.7.12",
+    "nodemon": "^2.0.1"
+  }
+}
