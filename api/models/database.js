@@ -20,5 +20,4 @@ db.once('open', function() {
   console.log('You are connected to database');
 });
 
-module.exports = mongoose.connection;
-//module.exports = dbURL;
+module.exports = db;

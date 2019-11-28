@@ -10,7 +10,6 @@ app_api.use(require('./middlewares/allowCrossDomain'));
 
 //db connection
 let db = require('./models/database');
-//mongoose.connect(db.dbURL, {useNewUrlParser: true});
 
 //define routes
 let usersRouter = require('./routes/users.route');

@@ -5,11 +5,7 @@ const UserController = require("../models/controllers/users.controller");
 let router = express.Router();
 
 // GET All users 
-router.get("/users", (request, response) => {
-    UserController.findAll(request, response);
-    response.status(200).end();
-
-});
+router.get("/users", UserController.findAll);
 
 // GET user by id
 router.get("/user/:id", (request, response) => {

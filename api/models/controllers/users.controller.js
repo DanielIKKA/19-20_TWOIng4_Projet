@@ -4,7 +4,8 @@ const User = require("../schemas/user.schema");
 exports.findAll = (req, res) => {
     User.find()
       .then(users => {
-        res.send(users);
+        console.log(User);
+        res.status(200).send(users);
       })
       .catch(err => {
         res.status(500).send({
