@@ -1,10 +1,11 @@
 const mongoose = require('mongoose');
 
-const dbName = "DashbordProject_DB";
+mongoose.Promise = global.Promise;
+const dbName = "db_project";
 const dbURL = `mongodb://localhost:27017/${dbName}`;
 
 // connection
-mongoose.connect('mongodb://localhost/test', {
+mongoose.connect(dbURL, {
     useNewUrlParser: true
 });
 
