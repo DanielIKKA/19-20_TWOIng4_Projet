@@ -10,4 +10,7 @@ router.get("/sensors", SensorController.findAll);
 // GET sensor by id
 router.get("/sensors/:sensorId", SensorController.findOne);
 
+//Get sensor by User ID A FAIRE
+//router.get("/sensors/users/:userId",SensorController.findByUserID);
+
 module.exports = router;

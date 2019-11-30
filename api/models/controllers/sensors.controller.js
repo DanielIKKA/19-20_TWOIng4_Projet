@@ -35,3 +35,4 @@ exports.findAll = (req, res) => {
         });
       });
   };
+

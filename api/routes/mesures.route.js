@@ -1,20 +1,16 @@
 const express = require('express');
 const _ = require('lodash');
-//const UserController = require("../models/controllers/users.controller");
+const MeasureController = require("../models/controllers/measure.controller");
 
 let router = express.Router();
 
-/*
-// GET All users 
-router.get("/users", (request, response) => {
-    UserController.findAll(request, response);
-    response.status(200).end();
+// GET All measures 
+router.get("/measures", MeasureController.findAll);
 
-});
+// GET measure by id
+router.get("/measures/:measureId", MeasureController.findOne);
 
-// GET user by id
-router.get("/user/:id", (request, response) => {
-    const { id } = request.params.id;
-});*/
+//Get sensor by Sensor ID A FAIRE
+//router.get("/sensors/users/:userId",SensorController.findByUserID);
 
 module.exports = router;
