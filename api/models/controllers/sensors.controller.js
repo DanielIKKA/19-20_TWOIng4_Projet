@@ -72,3 +72,26 @@ exports.update = (req, res) => {
       });
     });
 };
+
+// Delete a User with the specified UserId in the request
+exports.delete = (req, res) => {
+  Sensor.findByIdAndRemove(req.params.sensorId)
+    .then(sensor => {
+      if (!sensor) {
+        return res.status(404).send({
+          message: 'Sensor not found with id ' + req.params.sensorId
+        });
+      }
+      res.send({ message: 'Sensor deleted successfully!' });
+    })
+    .catch(err => {
+      if (err.kind === 'ObjectId' || err.name === 'NotFound') {
+        return res.status(404).send({
+          message: 'Sensor not found with id ' + req.params.sensorId
+        });
+      }
+      return res.status(500).send({
+        message: 'Could not delete sensor with id ' + req.params.sensorId
+      });
+    });
+};
