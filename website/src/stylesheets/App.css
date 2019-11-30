@@ -20,3 +20,11 @@
 .App-link {
   color: #09d3ac;
 }
+
+.dashboard-content{
+  min-height: 100%;
+}
+
+#main-wrapper {
+  min-height: 100vh;
+}
