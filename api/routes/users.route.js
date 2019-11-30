@@ -8,8 +8,6 @@ let router = express.Router();
 router.get("/users", UserController.findAll);
 
 // GET user by id
-router.get("/user/:id", (request, response) => {
-    const { id } = request.params.id;
-});
+router.get("/users/:userId", UserController.findOne);
 
 module.exports = router;

@@ -4,7 +4,6 @@ const User = require("../schemas/user.schema");
 exports.findAll = (req, res) => {
     User.find()
       .then(users => {
-        console.log(User);
         res.status(200).send(users);
       })
       .catch(err => {
@@ -14,7 +13,7 @@ exports.findAll = (req, res) => {
       });
   };
   
-  // Find a single User with a UserId
+  // Find a single User with a id
   exports.findOne = (req, res) => {
     User.findById(req.params.userId)
       .then(user => {
