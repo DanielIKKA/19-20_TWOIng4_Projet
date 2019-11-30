@@ -9,7 +9,8 @@ const dbURL = `mongodb://localhost:27017/${dbName}`;
 
 // connection
 mongoose.connect(dbURL, {
-  useNewUrlParser: true
+  useNewUrlParser: true,
+  useFindAndModify : false
 });
 
 const db = mongoose.connection;
