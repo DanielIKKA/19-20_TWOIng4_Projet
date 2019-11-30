@@ -1,12 +1,17 @@
-import React from 'react';
-import './App.css';
+import React, {Component} from 'react';
+import {BrowserRouter} from 'react-router-dom'
+import PathManager from './index'
 
-function App() {
-  return (
-    <div id={'main-wrapper'}>
-
-    </div>
-  );
+class App extends Component{
+  render() {
+    return (
+      <div id={'main-wrapper'}>
+        <BrowserRouter>
+          <PathManager/>
+        </BrowserRouter>,
+      </div>
+    ); 
+  }
 }
 
 export default App;
