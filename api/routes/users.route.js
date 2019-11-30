@@ -11,6 +11,9 @@ router.get("/users", UserController.findAll);
 router.get("/users/:userId", UserController.findOne);
 
 // POST user by id
-router.post("/users/:userId", UserController.update)
+router.post("/users/:userId", UserController.update);
+
+// DELETE user by id
+router.delete("/users/:userId", UserController.delete);
 
 module.exports = router;

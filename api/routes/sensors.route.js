@@ -14,6 +14,9 @@ router.get("/sensors/:sensorId", SensorController.findOne);
 //router.get("/sensors/users/:userId",SensorController.findByUserID);
 
 // POST user by id
-router.post("/sensors/:sensorId", SensorController.update)
+router.post("/sensors/:sensorId", SensorController.update);
+
+// DELETE user by id
+router.delete("/sensors/:sensorId", SensorController.delete);
 
 module.exports = router;
