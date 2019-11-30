@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const db = require('../database');
 
 const sensorSchema = new mongoose.Schema(
     {
@@ -11,6 +12,6 @@ const sensorSchema = new mongoose.Schema(
             default: Date.now
         }
     }
-    );
+);
 
-module.exports = mongoose.model('sensor', sensorSchema);
+module.exports = db.model('Sensor', sensorSchema, 'sensor');
