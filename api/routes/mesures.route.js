@@ -13,4 +13,7 @@ router.get("/measures/:measureId", MeasureController.findOne);
 //Get sensor by Sensor ID A FAIRE
 //router.get("/sensors/users/:userId",SensorController.findByUserID);
 
+// POST user by id
+router.post("/measures/:measureId", MeasureController.update)
+
 module.exports = router;

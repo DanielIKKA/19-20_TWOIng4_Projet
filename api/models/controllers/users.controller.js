@@ -36,12 +36,9 @@ exports.findAll = (req, res) => {
       });
   };
 
-  // Update a User identified by the UserId in the request
+// Update a User identified by the UserId in the request
 exports.update = (req, res) => {
   // Validate Request
-  //if (!req.body.location || !req.body.personsInHouse || !req.body.houseSize) {
-    console.log(req.query);
-    //console.log(res.body);
   if (!req.query.personsInHouse) {
     return res.status(400).send({
       message: 'location and personsInHouse and houseSize can not be empty'
