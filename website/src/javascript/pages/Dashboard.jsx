@@ -11,13 +11,22 @@ const dark = {
 };
 
 class Dashboard extends Component {
+
+    onSearch() {
+        console.log("onSearch");
+    }
+
+    handleRefresh() {
+        console.log('on refresh');
+    }
+
     render() {
 
-        const {onSwitch, mode, onRefresh} = this.props;
+        const {onSwitch, mode} = this.props;
 
         return (
             <div id={'main-wrapper'} style={mode ? dark : light}>
-                <Header mode={mode} onSwitch={onSwitch} onRefresh={onRefresh}/>
+                <Header mode={mode} onSwitch={onSwitch} onRefresh={this.handleRefresh} onSearch={this.onSearch}/>
                 <Row className={'dashboard-content'}>
 
                 </Row>

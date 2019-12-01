@@ -18,14 +18,10 @@ class App extends Component{
     this.setState({ mode : !this.state.mode });
   }
 
-  handleRefresh() {
-    console.log('on refresh');
-  }
-
   render() {
     return (
         <BrowserRouter>
-          <PathManager mode={this.state.mode} onSwitch={this.handleSwitchDisplayMode} onRefresh={this.handleRefresh}/>
+          <PathManager mode={this.state.mode} onSwitch={this.handleSwitchDisplayMode}/>
         </BrowserRouter>
     ); 
   }
