@@ -10,4 +10,7 @@ router.get("/users", UserController.findAll);
 // GET user by id
 router.get("/users/:userId", UserController.findOne);
 
+// POST user by id
+router.post("/users/:userId", UserController.update)
+
 module.exports = router;

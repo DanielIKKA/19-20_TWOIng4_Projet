@@ -4,12 +4,15 @@ const db = require('../database');
 const userSchema = new mongoose.Schema({
     location: {
         type: String,
+        required: true,
     },
     personsInHouse : {
         type: Number,
+        required: true,
     },
     houseSize : {
         type: String,
+        required: true,
     }
 });
 
