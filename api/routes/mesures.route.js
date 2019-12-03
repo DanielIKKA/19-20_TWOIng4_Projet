@@ -16,4 +16,7 @@ router.get("/measures/:measureId", MeasureController.findOne);
 // POST user by id
 router.post("/measures/:measureId", MeasureController.update)
 
+// DELETE user by id
+router.delete("/measures/:measureId", MeasureController.delete);
+
 module.exports = router;

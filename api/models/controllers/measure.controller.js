@@ -73,3 +73,26 @@ Measure.findByIdAndUpdate(
     });
 });
 };
+
+// Delete a User with the specified UserId in the request
+exports.delete = (req, res) => {
+  Measure.findByIdAndRemove(req.params.measureId)
+    .then(measure => {
+      if (!measure) {
+        return res.status(404).send({
+          message: 'measure not found with id ' + req.params.measureId
+        });
+      }
+      res.send({ message: 'measure deleted successfully!' });
+    })
+    .catch(err => {
+      if (err.kind === 'ObjectId' || err.name === 'NotFound') {
+        return res.status(404).send({
+          message: 'measure not found with id ' + req.params.measureId
+        });
+      }
+      return res.status(500).send({
+        message: 'Could not delete measure with id ' + req.params.measureId
+      });
+    });
+};
