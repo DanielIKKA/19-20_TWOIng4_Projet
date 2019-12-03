@@ -19,4 +19,7 @@ router.post("/sensors/:sensorId", SensorController.update);
 // DELETE user by id
 router.delete("/sensors/:sensorId", SensorController.delete);
 
+// PUT one sensor
+router.put('/sensors', SensorController.create);
+
 module.exports = router;

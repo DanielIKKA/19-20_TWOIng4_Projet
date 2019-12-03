@@ -73,7 +73,7 @@ exports.update = (req, res) => {
     });
 };
 
-// Delete a User with the specified UserId in the request
+// Delete a sensor with the specified sensorId in the request
 exports.delete = (req, res) => {
   Sensor.findByIdAndRemove(req.params.sensorId)
     .then(sensor => {
@@ -92,6 +92,40 @@ exports.delete = (req, res) => {
       }
       return res.status(500).send({
         message: 'Could not delete sensor with id ' + req.params.sensorId
+      });
+    });
+};
+
+// Create and Save a new Sensor
+exports.create = (req, res) => {
+  // Validate request
+  if (!req.query.location) {
+    // If location is not present in body reject the request by
+    // sending the appropriate http code
+    return res.status(400).send({
+      message: 'location can not be empty'
+    });
+  }
+
+  // Create a new Sensor
+  const sensor = new Sensor({
+    location : req.query.location,
+    userID : req.query.userID
+    //creationDate : Date.now
+  });
+
+  // Save Sensor in the database
+  sensor
+    .save()
+    .then(data => {
+      // we wait for insertion to be complete and we send the newly sensor integrated
+      res.send(data);
+    })
+    .catch(err => {
+      // In case of error during insertion of a new sensor in database we send an
+      // appropriate message
+      res.status(500).send({
+        message: err.message || 'Some error occurred while creating the Sensor.'
       });
     });
 };
