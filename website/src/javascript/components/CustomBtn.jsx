@@ -5,7 +5,7 @@ class CustomBtn extends Component {
     styles = {
         light : {
             fontSize : "0.85rem",
-            fontWeight : 100,
+            fontWeight : 400,
             backgroundColor : "#646ECD",
             color : "white",
             borderRadius : '0.4em',
@@ -13,7 +13,7 @@ class CustomBtn extends Component {
         },
         dark : {
             fontSize : "0.85rem",
-            fontWeight : 100,
+            fontWeight : 400,
             backgroundColor : '#272F45',
             color : "white",
             borderRadius : '0.4em',

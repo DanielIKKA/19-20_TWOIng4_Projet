@@ -3,9 +3,9 @@ import ReactDOM from 'react-dom';
 import {Switch, Route} from 'react-router-dom'
 import * as serviceWorker from './javascript/serviceWorker';
 
-import './stylesheets/App.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
-
+import './stylesheets/App.css'
+import './stylesheets/index.css'
 
 //include Components
 import Dashboard from './javascript/pages/Dashboard';
