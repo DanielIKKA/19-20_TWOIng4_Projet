@@ -36,7 +36,8 @@ class LastWidget extends Component {
         const {xs, sm, md, xl, lg} = this.props;
 
         return (
-            <Col xs={xs} sm={sm} md={md} xl={xl} lg={lg}
+            <Col id={'lastWidget-wrapper'}
+                 xs={xs} sm={sm} md={md} xl={xl} lg={lg}
                  style={mode ? this.styles.dark : this.styles.light}
                  className={"p-3"}
             >

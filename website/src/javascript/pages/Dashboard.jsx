@@ -58,14 +58,18 @@ class Dashboard extends Component {
                             </CustomBtn>
                         </Col>
                     </Col>
-                    <Col>
+                    <Col id={"widgets-wrapper"} className={'d-flex'}>
                         <LastWidget xs={6} md={4}
-                                    mode={mode} value={"35%"} iconName={"invert_colors"}
+                                    mode={mode} value={"35%"} iconName={"access_time"}
                                     darkBG={'rgb(218,83,103,0.5)'} lightBG={'rgb(218,83,103,1)'}
                         />
                         <LastWidget xs={6} md={4}
                                     mode={mode} value={"35%"} iconName={"invert_colors"}
                                     darkBG={'rgb(229,183,82,0.5)'} lightBG={'rgb(229,183,82,1)'}
+                        />
+                        <LastWidget xs={6} md={4}
+                                    mode={mode} value={"35%"} iconName={"invert_colors"}
+                                    darkBG={'rgb(100,110,205,0.5)'} lightBG={'rgb(100,110,205,1)'}
                         />
                     </Col>
                 </Container>
