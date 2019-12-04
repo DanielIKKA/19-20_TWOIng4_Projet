@@ -19,4 +19,7 @@ router.post("/measures/:measureId", MeasureController.update)
 // DELETE user by id
 router.delete("/measures/:measureId", MeasureController.delete);
 
+// PUT one sensor
+router.put('/measures', MeasureController.create);
+
 module.exports = router;

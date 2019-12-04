@@ -36,7 +36,7 @@ exports.findAll = (req, res) => {
       });
   };
 
-  // Update a User identified by the UserId in the request
+  // Update a measure identified by the measureId in the request
 exports.update = (req, res) => {
   // Validate Request
   if (!req.query.value) {
@@ -74,7 +74,7 @@ Measure.findByIdAndUpdate(
 });
 };
 
-// Delete a User with the specified UserId in the request
+// Delete a measure with the specified measureId in the request
 exports.delete = (req, res) => {
   Measure.findByIdAndRemove(req.params.measureId)
     .then(measure => {
@@ -93,6 +93,41 @@ exports.delete = (req, res) => {
       }
       return res.status(500).send({
         message: 'Could not delete measure with id ' + req.params.measureId
+      });
+    });
+};
+
+// Create and Save a new measure
+exports.create = (req, res) => {
+  // Validate request
+  if (!req.query.value) {
+    // If location is not present in body reject the request by
+    // sending the appropriate http code
+    return res.status(400).send({
+      message: 'value can not be empty'
+    });
+  }
+
+  // Create a new Measure
+  const measure = new Measure({
+    type : req.query.type,
+    value : req.query.value,
+    sensorID : req.query.sensorID
+    //creationDate : Date.now
+  });
+
+  // Save measure in the database
+  measure
+    .save()
+    .then(data => {
+      // we wait for insertion to be complete and we send the newly measure integrated
+      res.send(data);
+    })
+    .catch(err => {
+      // In case of error during insertion of a new sensor in measure we send an
+      // appropriate message
+      res.status(500).send({
+        message: err.message || 'Some error occurred while creating the measure.'
       });
     });
 };

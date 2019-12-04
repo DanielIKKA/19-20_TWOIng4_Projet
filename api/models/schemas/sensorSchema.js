@@ -1,6 +1,8 @@
 const mongoose = require("mongoose");
 const db = require('../database');
 
+var ObjectId = mongoose.Schema.Types.ObjectId;
+
 const sensorSchema = new mongoose.Schema(
     {
         location: {
@@ -10,6 +12,10 @@ const sensorSchema = new mongoose.Schema(
         creationDate: {
             type: Date,
             default: Date.now
+        },
+        userID: {
+            type: ObjectId,
+            required: true
         }
     }
 );

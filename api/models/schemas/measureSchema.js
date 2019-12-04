@@ -1,6 +1,8 @@
 const mongoose = require("mongoose");
 const db = require('../database');
 
+var ObjectId = mongoose.Schema.Types.ObjectId;
+
 const measureSchema = new mongoose.Schema(
     {
         type: {
@@ -14,6 +16,10 @@ const measureSchema = new mongoose.Schema(
         value: {
             type: Number,
             required: true,
+        },
+        sensorID: {
+            type: ObjectId,
+            required: true
         }
     }
 );
