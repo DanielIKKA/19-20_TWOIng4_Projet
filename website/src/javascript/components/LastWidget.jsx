@@ -38,14 +38,16 @@ class LastWidget extends Component {
         return (
             <Col id={'lastWidget-wrapper'}
                  xs={xs} sm={sm} md={md} xl={xl} lg={lg}
-                 style={mode ? this.styles.dark : this.styles.light}
-                 className={"p-3"}
+                 className={"my-3"}
             >
-                <h1 className={"t-size-1-5 fw-600"}>Last Measure</h1>
-                <h2 className={"t-size-5 fw-100 font-italic text-center m-0"}>
-                    <i className={'material-icons t-size-4'}>{iconName}</i>
-                    {value}
-                </h2>
+                <Col style={mode ? this.styles.dark : this.styles.light}
+                     className={"p-3"}>
+                    <h1 className={"t-size-1-5 fw-600"}>Last Measure</h1>
+                    <h2 className={"t-size-4 fw-100 font-italic text-center m-0"}>
+                        <i className={'material-icons t-size-1'}>{iconName}</i>
+                        {value}
+                    </h2>
+                </Col>
             </Col>
         );
     }

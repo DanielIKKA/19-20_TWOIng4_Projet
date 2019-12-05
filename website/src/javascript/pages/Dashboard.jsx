@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import Header from '../components/Header'
-import {Col, Container} from "react-bootstrap";
+import {Col, Container, Row} from "react-bootstrap";
 import CustomBtn from "../components/CustomBtn"
 import LastWidget from "../components/LastWidget"
 
@@ -42,7 +42,7 @@ class Dashboard extends Component {
             <div id={'main-wrapper'} style={mode ? styles.dark : styles.light}>
                 <Header mode={mode} onSwitch={onSwitch} onRefresh={this.handleRefresh} onSearch={this.onSearch}/>
                 <Container fluid={true} id={'dashboard-wrapper'} className={'dashboard-content'}>
-                    <Col id={"header-dashB-wrapper"} className={"d-flex"}>
+                    <Col id={"header-dashboard-wrapper"} className={"d-flex p-0"}>
 
                         <Col id={'titles'} xs={9} className={"my-5 p-0"}>
                             <h1 className={"fw-800 mb-0"}>Dashboard</h1>
@@ -58,20 +58,40 @@ class Dashboard extends Component {
                             </CustomBtn>
                         </Col>
                     </Col>
-                    <Col id={"widgets-wrapper"} className={'d-flex'}>
-                        <LastWidget xs={6} md={4}
+                    <Row id={"widgets-wrapper"}>
+                        <LastWidget xs={6} md={3}
                                     mode={mode} value={"35%"} iconName={"access_time"}
                                     darkBG={'rgb(218,83,103,0.5)'} lightBG={'rgb(218,83,103,1)'}
                         />
-                        <LastWidget xs={6} md={4}
+                        <LastWidget xs={6} md={3}
                                     mode={mode} value={"35%"} iconName={"invert_colors"}
                                     darkBG={'rgb(229,183,82,0.5)'} lightBG={'rgb(229,183,82,1)'}
                         />
-                        <LastWidget xs={6} md={4}
+                        <LastWidget xs={6} md={3}
                                     mode={mode} value={"35%"} iconName={"invert_colors"}
                                     darkBG={'rgb(100,110,205,0.5)'} lightBG={'rgb(100,110,205,1)'}
                         />
-                    </Col>
+                        <LastWidget xs={6} md={3}
+                                    mode={mode} value={"35%"} iconName={"invert_colors"}
+                                    darkBG={'rgb(100,110,205,0.5)'} lightBG={'rgb(100,110,205,1)'}
+                        />
+                        <LastWidget xs={6} md={3}
+                                    mode={mode} value={"35%"} iconName={"invert_colors"}
+                                    darkBG={'rgb(100,110,205,0.5)'} lightBG={'rgb(100,110,205,1)'}
+                        />
+                        <LastWidget xs={6} md={3}
+                                    mode={mode} value={"35%"} iconName={"invert_colors"}
+                                    darkBG={'rgb(100,110,205,0.5)'} lightBG={'rgb(100,110,205,1)'}
+                        />
+                        <LastWidget xs={6} md={3}
+                                    mode={mode} value={"35%"} iconName={"invert_colors"}
+                                    darkBG={'rgb(100,110,205,0.5)'} lightBG={'rgb(100,110,205,1)'}
+                        />
+                        <LastWidget xs={6} md={3}
+                                    mode={mode} value={"35%"} iconName={"invert_colors"}
+                                    darkBG={'rgb(100,110,205,0.5)'} lightBG={'rgb(100,110,205,1)'}
+                        />
+                    </Row>
                 </Container>
             </div>
         );
