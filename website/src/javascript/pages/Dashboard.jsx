@@ -3,6 +3,7 @@ import Header from '../components/Header'
 import {Col, Container, Row} from "react-bootstrap";
 import CustomBtn from "../components/CustomBtn"
 import LastWidget from "../components/LastWidget"
+import {ClockWidget} from "../components/ClockWidget";
 
 
 const styles = {
@@ -71,14 +72,12 @@ class Dashboard extends Component {
                                     mode={mode} value={"35%"} iconName={"invert_colors"}
                                     darkBG={'rgb(100,110,205,0.5)'} lightBG={'rgb(100,110,205,1)'}
                         />
+                        <ClockWidget xs={6} md={3} mode={mode}/>
                         <LastWidget xs={6} md={3}
                                     mode={mode} value={"35%"} iconName={"invert_colors"}
                                     darkBG={'rgb(100,110,205,0.5)'} lightBG={'rgb(100,110,205,1)'}
                         />
-                        <LastWidget xs={6} md={3}
-                                    mode={mode} value={"35%"} iconName={"invert_colors"}
-                                    darkBG={'rgb(100,110,205,0.5)'} lightBG={'rgb(100,110,205,1)'}
-                        />
+
                         <LastWidget xs={6} md={3}
                                     mode={mode} value={"35%"} iconName={"invert_colors"}
                                     darkBG={'rgb(100,110,205,0.5)'} lightBG={'rgb(100,110,205,1)'}
