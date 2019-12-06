@@ -12,6 +12,7 @@ class LastWidget extends Component {
                 backgroundColor: props.lightBG ? props.lightBG : "rgb(218,83,103,1)",
                 color: props.lightCol? props.lightCol : "white",
                 borderRadius: '0.4em',
+                boxShadow : '2px 2px 5px rgba(0,0,0,0.3)',
                 border: 'none',
 
                 transition : 'color 500ms, background-color 500ms'
