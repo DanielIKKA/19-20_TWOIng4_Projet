@@ -10,6 +10,7 @@ export const ClockWidget = (props) => {
             borderRadius: '0.4em',
             height : '100%',
             border: 'solid 1px black',
+            boxShadow : '2px 2px 5px rgba(0,0,0,0.3)',
 
             transition : 'color 500ms, background-color 500ms'
         },
