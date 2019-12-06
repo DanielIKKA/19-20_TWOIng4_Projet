@@ -40,7 +40,8 @@ class LastWidget extends Component {
                  xs={xs} sm={sm} md={md} xl={xl} lg={lg}
                  className={"my-3"}
             >
-                <Col style={mode ? this.styles.dark : this.styles.light}
+                <Col id={'last-widget'}
+                     style={mode ? this.styles.dark : this.styles.light}
                      className={"p-3"}>
                     <h1 className={"t-size-1-5 fw-600"}>Last Measure</h1>
                     <h2 className={"t-size-4 fw-100 font-italic text-center m-0"}>
