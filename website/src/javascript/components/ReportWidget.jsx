@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import {Col} from "react-bootstrap";
 import Select from "react-select";
+import CustomPieChart from "./CustomPieChart";
 
 class ReportWidget extends Component {
 
@@ -61,12 +62,11 @@ class ReportWidget extends Component {
                       options={this.options} className={"my-3"}
                   />
 
-                  
+                  <CustomPieChart mode={mode}/>
               </Col>
           </Col>
         );
     }
-
 }
 
 export default ReportWidget;

@@ -75,7 +75,7 @@ class Dashboard extends Component {
                         />
                         <ClockWidget xs={6} md={3} mode={mode}/>
 
-                        <ReportWidget xs={4} mode={mode}/>
+                        <ReportWidget xs={12} md={6} lg={5} xl={4}  mode={mode}/>
                     </Row>
                 </Container>
             </div>
