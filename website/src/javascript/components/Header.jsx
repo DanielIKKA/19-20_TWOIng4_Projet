@@ -7,10 +7,12 @@ const Style = {
     backgroundColor : "#212940",
     color : "white"
 };
+
 const InputStyle = {
     backgroundColor : "#434C67",
     color : "#DDDD"
 };
+
 const BtnStyles = {
     light : {
         fontSize : "0.85rem",
