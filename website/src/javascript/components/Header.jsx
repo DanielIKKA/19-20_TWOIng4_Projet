@@ -38,7 +38,7 @@ class Header extends Component {
             <Col id={"header-wrapper"}
                  as={"header"}
                  style={Style}
-                 className={"d-flex justify-content-end align-content-center p-1"}>
+                 className={"d-flex justify-content-end align-content-center p-1 fixed-top"}>
 
                 <Col id={"search-input-wrapper"}
                      xs={6} md={4} lg={3}
