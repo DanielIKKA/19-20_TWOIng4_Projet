@@ -44,7 +44,7 @@ class Dashboard extends Component {
             <div id={'main-wrapper'} style={mode ? styles.dark : styles.light}>
                 <Header mode={mode} onSwitch={onSwitch} onRefresh={this.handleRefresh} onSearch={this.onSearch}/>
                 <Container fluid={true} id={'dashboard-wrapper'} className={'dashboard-content'}>
-                    <Col id={"header-dashboard-wrapper"} className={"d-flex p-0"}>
+                    <Col id={"header-dashboard-wrapper"} className={"d-flex p-0 mt-5"}>
 
                         <Col id={'titles'} xs={9} className={"my-5 p-0"}>
                             <h1 className={"fw-800 mb-0"}>Dashboard</h1>
