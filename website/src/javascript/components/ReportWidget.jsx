@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {Col} from "react-bootstrap";
+import {Col, Row} from "react-bootstrap";
 import Select from "react-select";
 import CustomPieChart from "./CustomPieChart";
 
@@ -27,6 +27,11 @@ class ReportWidget extends Component {
         { value : "nbPerson", label: "Number person in houses"},
         { value : "houseSize", label: "House size"}
     ];
+    data = [
+        { name: 'Group A', value: 400 },
+        { name: 'Group B', value: 300 },
+        { name: 'Group C', value: 300 }
+    ];
 
     constructor(props) {
         super(props);
@@ -37,8 +42,44 @@ class ReportWidget extends Component {
     }
 
     handleChange = selectedOption => {
+        if (selectedOption === this.options[0]) {
+            this.data = this.fetchDataForPays();
+        } else if (selectedOption === this.options[1]) {
+            this.data = this.fetchDataForNbPerson();
+        } else if (selectedOption === this.options[2]) {
+            this.data = this.fetchDataForHouseSize();
+        }
+        // after for the re-updating of the view
         this.setState({ selectedOption });
-        console.log(`Option selected:`, selectedOption);
+    };
+
+    fetchDataForPays() {
+        console.log('pays');
+        return this.data;
+    }
+
+    fetchDataForNbPerson() {
+        console.log('nbPerson');
+        return this.data;
+    }
+
+    fetchDataForHouseSize() {
+        console.log('house size');
+        return this.data;
+    }
+
+    reportLine = (text, percent, key) => {
+        return(
+            <Col key={key} className={'px-2 my-2'}>
+                <Row className={'text-center'}>
+                    <Col as={'p'} className={'m-0'}>{text}</Col>
+                    <Col as={'p'} className={'m-0'}>{percent} %</Col>
+                </Row>
+                <Col as={'svg'} height={2}>
+                    <rect width={'100%'} height={'50%'} style={this.props.mode ? {fill : 'white'} : {fill : 'black'}}/>
+                </Col>
+            </Col>
+        );
     };
 
     render() {
@@ -59,10 +100,14 @@ class ReportWidget extends Component {
 
                   <Select
                       value={selectedOption} onChange={this.handleChange}
-                      options={this.options} className={"my-3"}
+                      options={this.options} className={`my-3 text-dark`}
                   />
 
-                  <CustomPieChart mode={mode}/>
+                  <CustomPieChart data={this.data} mode={mode}/>
+
+                  {this.data.map((value, index) =>
+                      this.reportLine(value.name, value.value, index)
+                  )}
               </Col>
           </Col>
         );

@@ -43,7 +43,7 @@ class Dashboard extends Component {
         return (
             <div id={'main-wrapper'} style={mode ? styles.dark : styles.light}>
                 <Header mode={mode} onSwitch={onSwitch} onRefresh={this.handleRefresh} onSearch={this.onSearch}/>
-                <Container fluid={true} id={'dashboard-wrapper'} className={'dashboard-content'}>
+                <Container fluid={true} id={'dashboard-wrapper'} className={'dashboard-content px-5'}>
                     <Col id={"header-dashboard-wrapper"} className={"d-flex p-0 mt-5"}>
 
                         <Col id={'titles'} xs={9} className={"my-5 p-0"}>
@@ -61,21 +61,21 @@ class Dashboard extends Component {
                         </Col>
                     </Col>
                     <Row id={"widgets-wrapper"}>
-                        <LastWidget xs={6} md={3}
+                        <LastWidget xs={{span:6, order: 1}} md={{span:3, order: 1}}
                                     mode={mode} value={"35%"} iconName={"access_time"}
                                     darkBG={'rgb(218,83,103,0.5)'} lightBG={'rgb(218,83,103,1)'}
                         />
-                        <LastWidget xs={6} md={3}
+                        <LastWidget xs={{span:6, order: 3}} md={{span:3, order: 2}}
                                     mode={mode} value={"35%"} iconName={"invert_colors"}
                                     darkBG={'rgb(229,183,82,0.5)'} lightBG={'rgb(229,183,82,1)'}
                         />
-                        <LastWidget xs={6} md={3}
+                        <LastWidget xs={{span:6, order: 4}} md={{span:3, order: 3}}
                                     mode={mode} value={"35%"} iconName={"invert_colors"}
                                     darkBG={'rgb(100,110,205,0.5)'} lightBG={'rgb(100,110,205,1)'}
                         />
-                        <ClockWidget xs={6} md={3} mode={mode}/>
+                        <ClockWidget xs={{span: 6, order: 2}} md={{span:3, order: 4}} mode={mode}/>
 
-                        <ReportWidget xs={12} md={6} lg={5} xl={4}  mode={mode}/>
+                        <ReportWidget xs={{span:12, order: 5}} md={6} lg={5} xl={4}  mode={mode}/>
                     </Row>
                 </Container>
             </div>

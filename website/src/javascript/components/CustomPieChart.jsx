@@ -1,12 +1,6 @@
 import React, { PureComponent } from 'react';
 import {PieChart, Pie, Cell, ResponsiveContainer, Sector} from 'recharts';
 
-const data = [
-    { name: 'Group A', value: 400 },
-    { name: 'Group B', value: 300 },
-    { name: 'Group C', value: 300 },
-    { name: 'Group D', value: 200 },
-];
 const COLORS = {
     dark: ['#FBB2F3', '#E5B752', '#45A196', '#78BEFF'],
     light: ['#DA5367', '#E5B752', '#45A196', '#646ECD']
@@ -20,7 +14,7 @@ const renderActiveShape = (props) => {
     return (
         <g>
             <text x={cx} y={cy-10} dy={8} textAnchor="middle" fill={fill}>{payload.name}</text>
-            <text x={cx} y={cy+10} dy={8} textAnchor="middle" fill={fill}>{payload.name}</text>
+            <text x={cx} y={cy+10} dy={8} textAnchor="middle" fill={fill}>{payload.value}</text>
             <Sector
                 cx={cx}
                 cy={cy}
@@ -43,15 +37,21 @@ export default class CustomPieChart extends PureComponent {
 
     onPieEnter = (data, index) => {
         this.setState({
-            activeIndex: index,
+            activeIndex: index
+        });
+    };
+
+    onPieOut = () => {
+        this.setState({
+            activeIndex: undefined
         });
     };
 
     render() {
-        const {mode} = this.props;
+        const {mode, data} = this.props;
 
         return (
-            <div style={{width : '100%', height: 300}} >
+            <div className={'mb-5'} style={{width : '100%', height: 300}} >
                 <ResponsiveContainer>
                     <PieChart>
                         <Pie
@@ -66,6 +66,7 @@ export default class CustomPieChart extends PureComponent {
                             activeIndex={this.state.activeIndex}
                             activeShape={renderActiveShape}
                             onMouseEnter={this.onPieEnter}
+                            onMouseOut={this.onPieOut}
                         >
                             {
                                 data.map((entry, index) =>
