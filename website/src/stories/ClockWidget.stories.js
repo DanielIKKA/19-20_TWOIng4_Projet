@@ -1,10 +1,8 @@
 import React from "react";
 import {storiesOf} from "@storybook/react"
 import ClockWidget from "../javascript/components/ClockWidget"
-
-
-  
-  //export const clockWidget = () => <ClockWidget />;
+import index from "../index"
 
   storiesOf('Components/ClockWidget', module)
-  .add('default', () => <ClockWidget />)
+  .add('Dark mode', () => <ClockWidget xs={6} md={3} mode={true} darkCol = "green"/>)
+  .add('Light mode', () => <ClockWidget xs={6} md={3} mode={false}/>)
