@@ -6,7 +6,6 @@ import LastWidget from "../components/LastWidget"
 import {ClockWidget} from "../components/ClockWidget";
 import ReportWidget from "../components/ReportWidget";
 
-
 const styles = {
     light : {
         backgroundColor : "white",
