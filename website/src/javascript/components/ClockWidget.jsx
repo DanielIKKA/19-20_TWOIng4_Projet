@@ -41,6 +41,5 @@ const ClockWidget = (props) => {
             </Col>
         </Col>
     );
-}
-
+};
 export default ClockWidget;

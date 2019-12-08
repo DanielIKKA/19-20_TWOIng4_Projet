@@ -3,7 +3,7 @@ import Header from '../components/Header'
 import {Col, Container, Row} from "react-bootstrap";
 import CustomBtn from "../components/CustomBtn"
 import LastWidget from "../components/LastWidget"
-import {ClockWidget} from "../components/ClockWidget";
+import ClockWidget from "../components/ClockWidget";
 import ReportWidget from "../components/ReportWidget";
 
 
