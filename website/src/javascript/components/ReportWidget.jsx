@@ -1,7 +1,110 @@
 import React, {Component} from "react";
-import {Col, Row} from "react-bootstrap";
+import {Col, Container, Row} from "react-bootstrap";
 import Select from "react-select";
 import CustomPieChart from "./CustomPieChart";
+import ApiManager from "../models/ApiManager";
+import _ from 'lodash';
+import {forEach} from "react-bootstrap/cjs/ElementChildren";
+let EventEmitter = require('events').EventEmitter;
+
+let emitter = new EventEmitter();
+let EVENT_FETCH_END = 'fetch_end';
+
+const options = [
+    { value : "pays", label : "Pays"},
+    { value : "nbPerson", label: "Number person in houses"},
+    { value : "houseSize", label: "House size"}
+];
+
+class Fetcher {
+    manager = new ApiManager();
+
+    // each data {name : __, value : ___, number: ___}
+    data = [];
+
+    fetch(option) {
+        // clear
+        this.data = [];
+        //emitter(EVENT_FETCH_BEGIN);
+
+        // pays
+        if(option === options[0]) {
+            this.fetchByPays();
+            // nb person
+        } else if (option === options[1]) {
+            this.fetchByPeron();
+            // house size
+        } else if (option === options[2]) {
+            this.fetchBySize();
+        }
+    }
+
+    fetchByPays() {
+        this.manager.fetchAllUsers()
+            .then(response => {
+                let raw = response.data;
+                //find all existed size
+                let allCountries = _.uniqBy(raw, 'location');
+
+                allCountries.forEach(user => {
+                    let dataFiltered = _.filter(raw, ['location', user.location]);
+                    this.data.push({
+                        name : _.startCase(user.location),
+                        value : _.round(dataFiltered.length/raw.length*100, 2),
+                        number : dataFiltered.length
+                    });
+                });
+
+                this.data = _.orderBy(this.data, ['value', 'name'], ['desc', 'asc']);
+                emitter.emit(EVENT_FETCH_END, this.data);
+            })
+            .catch(err => {
+                console.error('pb', err);
+            })
+    }
+    fetchByPeron() {
+        this.manager.fetchAllUsers()
+            .then(response => {
+                let raw = response.data;
+                let underThree = _.filter(raw, elem => {return elem.personsInHouse <= 2});
+                let betweenThreeFive = _.filter(raw, elem => {return (elem.personsInHouse >= 3 && elem.personsInHouse <= 5)});
+                let betweenSixEight = _.filter(raw, elem => {return (elem.personsInHouse >= 6 && elem.personsInHouse <= 8)});
+                let overEight = _.filter(raw, elem => {return elem.personsInHouse > 8});
+
+                this.data.push({name:'Under 3', value: _.round(underThree.length/raw.length*100,2), number: underThree.length});
+                this.data.push({name:'Between 3 and 5', value: _.round(betweenThreeFive.length/raw.length*100,2), number: betweenThreeFive.length});
+                this.data.push({name:'Between 6 and 8', value: _.round(betweenSixEight.length/raw.length*100,2), number: betweenSixEight.length});
+                this.data.push({name:'Over 8', value: _.round(overEight.length/raw.length*100,2), number: overEight.length});
+
+                emitter.emit(EVENT_FETCH_END, this.data);
+            })
+            .catch(err => {
+                console.error('pb', err);
+            })
+    }
+    fetchBySize() {
+        this.manager.fetchAllUsers()
+            .then(response => {
+                let raw = response.data;
+
+                //find all existed size
+                let sizes = _.uniqBy(raw, 'houseSize');
+                sizes.forEach(user => {
+                    let dataFiltered = _.filter(raw, ['houseSize', user.houseSize]);
+                    this.data.push({
+                        name : _.startCase(user.houseSize),
+                        value : _.round(dataFiltered.length/raw.length*100, 2),
+                        number : dataFiltered.length
+                    });
+                });
+
+                emitter.emit(EVENT_FETCH_END, this.data);
+            })
+            .catch(err => {
+                console.error('pb', err);
+            })
+    }
+}
 
 class ReportWidget extends Component {
 
@@ -22,52 +125,33 @@ class ReportWidget extends Component {
             transition : 'color 500ms, background-color 500ms'
         }
     };
-    options = [
-        { value : "pays", label : "Pays"},
-        { value : "nbPerson", label: "Number person in houses"},
-        { value : "houseSize", label: "House size"}
-    ];
-    data = [
-        { name: 'Group A', value: 400 },
-        { name: 'Group B', value: 300 },
-        { name: 'Group C', value: 300 },
-        { name: 'Group C', value: 200 }
-    ];
+    data = [];
+
+    fetcher = new Fetcher();
 
     constructor(props) {
         super(props);
 
         this.state =  {
             selectedOption: null,
-        }
+        };
+    }
+
+    componentDidMount() {
+        this.handleChange(options[0]);
     }
 
     handleChange = selectedOption => {
-        if (selectedOption === this.options[0]) {
-            this.data = this.fetchDataForPays();
-        } else if (selectedOption === this.options[1]) {
-            this.data = this.fetchDataForNbPerson();
-        } else if (selectedOption === this.options[2]) {
-            this.data = this.fetchDataForHouseSize();
-        }
-        // after for the re-updating of the view
-        this.setState({ selectedOption });
+        this.fetcher.fetch(selectedOption);
+
+        emitter.on(EVENT_FETCH_END, (data) => {
+            this.data = data;
+            // after for the re-updating of the view
+            this.setState({ selectedOption });
+        });
     };
 
-    fetchDataForPays() {
-        console.log('pays');
-        return this.data;
-    }
 
-    fetchDataForNbPerson() {
-        console.log('nbPerson');
-        return this.data;
-    }
-
-    fetchDataForHouseSize() {
-        console.log('house size');
-        return this.data;
-    }
 
     reportLine = (text, percent, key) => {
         return(
@@ -95,20 +179,24 @@ class ReportWidget extends Component {
                className={"my-3"}>
               <Col id={"report"}
                    className={"p-3"}
-                   style={mode ? this.style.dark : this.style.light}>
+                   style={mode ? this.style.dark : this.style.light}
+              >
 
                   <h1 id={'report-title'} className={"t-size-1-5 fw-600"}>Report</h1>
 
                   <Select
                       value={selectedOption} onChange={this.handleChange}
-                      options={this.options} className={`my-3 text-dark`}
+                      options={options} className={`my-3 text-dark`}
                   />
 
                   <CustomPieChart data={this.data} mode={mode}/>
 
-                  {this.data.map((value, index) =>
-                      this.reportLine(value.name, value.value, index)
-                  )}
+                  <Container style={{overflow :'scroll', height : 200}} className={'p-0'}>
+                      {this.data.map((value, index) =>
+                          this.reportLine(value.name, value.value, index)
+                      )}
+                  </Container>
+
               </Col>
           </Col>
         );

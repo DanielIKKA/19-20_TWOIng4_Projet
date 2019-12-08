@@ -1,23 +1,23 @@
 import axios from 'axios'
 
 //use 'http://' or 'https://' fix the problem of cross-origin permission
-const API_URI = 'http://localhost:3000/my_api_movies_TWtp4';
+const API_URI = 'http://localhost:3000/my_api_dashbord_TWProject';
 
 class ApiManager {
 
-    fetchAllMovie() {
-        return axios.get(`${API_URI}/movies`);
+    // find all users
+    fetchAllUsers() {
+        return axios.get(`${API_URI}/users`);
     }
 
-    fechtMovie(id) {
-        return axios.get(`${API_URI}/movies/${id}`);
+    // find all sensors
+    fetchAllSensors() {
+        return axios.get(`${API_URI}/users`);
     }
 
-    addNewMovie(movie) {}
-
-    updateMovie(id){}
-
-    removeMovie(id){}
+    fetchOneUser(id) {
+        return axios.get(`${API_URI}/users/${id}`);
+    }
 }
 
 export default ApiManager;

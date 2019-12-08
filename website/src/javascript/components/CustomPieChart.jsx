@@ -14,7 +14,7 @@ const renderActiveShape = (props) => {
     return (
         <g>
             <text x={cx} y={cy-10} dy={8} textAnchor="middle" fill={fill}>{payload.name}</text>
-            <text x={cx} y={cy+10} dy={8} textAnchor="middle" fill={fill}>{payload.value}</text>
+            <text x={cx} y={cy+10} dy={8} textAnchor="middle" fill={fill}>Total: {payload.number}</text>
             <Sector
                 cx={cx}
                 cy={cy}
@@ -51,15 +51,15 @@ export default class CustomPieChart extends PureComponent {
         const {mode, data} = this.props;
 
         return (
-            <div className={'mb-5'} style={{width : '100%', height: 300}} >
+            <div className={'mb-5'} style={{width : '100%', height: 200}} >
                 <ResponsiveContainer>
                     <PieChart>
                         <Pie
                             data={data}
                             cx={'50%'}
                             cy={'50%'}
-                            innerRadius={115}
-                            outerRadius={130}
+                            innerRadius={75}
+                            outerRadius={85}
                             paddingAngle={5}
                             dataKey="value"
 
