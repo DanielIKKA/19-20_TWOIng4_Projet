@@ -2,7 +2,7 @@ import React from "react";
 import {Col} from 'react-bootstrap';
 import Clock from 'react-live-clock';
 
-export const ClockWidget = (props) => {
+const ClockWidget = (props) => {
 
     const styles = {
         light: {
@@ -41,4 +41,6 @@ export const ClockWidget = (props) => {
             </Col>
         </Col>
     );
-};
+}
+
+export default ClockWidget;
