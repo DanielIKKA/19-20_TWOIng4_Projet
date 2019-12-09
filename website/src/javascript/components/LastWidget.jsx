@@ -28,6 +28,10 @@ class LastWidget extends Component {
         }
     }
 
+    time(s) {
+        return new Date(s * 1e3).toDateString().slice(-13, -5);
+    }
+
     render() {
         //Content
         const { mode, value, iconName} = this.props;
@@ -43,14 +47,14 @@ class LastWidget extends Component {
                 <Col id={'last-widget'}
                      style={mode ? this.styles.dark : this.styles.light}
                      className={"p-3 shadow-shorter"}>
-                    <h1 className={"t-size-1-5 fw-600"}>Last Measure</h1>
+                    <h1 className={"t-size-1-5 fw-600 mb-3"}>Last Measure</h1>
                     <Row className={'justify-content-center'}>
                         <i className={'align-self-center material-icons t-size-3'}>{iconName}</i>
                         <h2 className={"t-size-4 fw-100 font-italic text-center m-0"}>
                             {value}
                         </h2>
                     </Row>
-
+                    <p className={'mt-3 mb-0 fw-300'}>Updated: {this.time(Date.now())}</p>
                 </Col>
             </Col>
         );
