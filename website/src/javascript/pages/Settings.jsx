@@ -27,7 +27,7 @@ class Settings extends Component {
             <div id={'main-wrapper'} style={mode ? styles.dark : styles.light}>
                 <Header mode={mode} onSwitch={onSwitch} onRefresh={this.handleRefresh} onSearch={this.onSearch}/>
                 <Container fluid={true} id={'dashboard-wrapper'} className={'dashboard-content p-5 mt-5'}>
-                    <TotalWidget xs={4}/>
+                    <TotalWidget xs={4} type={"clients"}/>
                 </Container>
             </div>
         );
