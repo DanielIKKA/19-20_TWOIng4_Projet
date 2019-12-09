@@ -10,7 +10,6 @@ storiesOf('Dashboard', module)
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"></link>
     <Dashboard mode={true}
         onSwitch={action("onSwitch")}
-        onRefresh={action("onRefresh")}
     />
     </div>)
   .add('Light Mode', () => 
@@ -18,6 +17,5 @@ storiesOf('Dashboard', module)
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"></link>
     <Dashboard mode={false}
         onSwitch={action("onSwitch")}
-        onRefresh={action("onRefresh")}
     />
   </div>)
