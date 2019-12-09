@@ -2,6 +2,7 @@ import React, {Component} from "react";
 import Header from "../components/Header";
 import {Col, Container, Row} from "react-bootstrap";
 import TotalWidget from "../components/TotalWidget";
+import TabWidget from "../components/TabWidget";
 
 const styles = {
     light : {
@@ -30,6 +31,9 @@ class Settings extends Component {
                     <TotalWidget xs={4} md={4} type={"clients"}/>
                     <TotalWidget xs={4} md={4} type={"sensors"}/>
                     <TotalWidget xs={4} md={4} type={"measures"}/>
+                </Row>
+                <Row id={"widgets-wrapper"}>
+                    <TabWidget xs = {12} md = {12} type={"clients"}/>
                 </Row>
             </div>
         );
