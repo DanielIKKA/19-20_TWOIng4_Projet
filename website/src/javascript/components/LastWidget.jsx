@@ -11,8 +11,7 @@ class LastWidget extends Component {
                 fontWeight: 100,
                 backgroundColor: props.lightBG ? props.lightBG : "rgb(218,83,103,1)",
                 color: props.lightCol? props.lightCol : "white",
-                borderRadius: '0.4em',
-                boxShadow : '2px 2px 5px rgba(0,0,0,0.3)',
+                borderRadius: '0.2em',
                 border: 'none',
 
                 transition : 'color 500ms, background-color 500ms'
@@ -21,7 +20,7 @@ class LastWidget extends Component {
                 fontWeight: 100,
                 backgroundColor: props.darkBG ? props.darkBG : "rgb(218,83,103,0.5)",
                 color: props.darkCol ? props.darkCol : "white",
-                borderRadius: '0.4em',
+                borderRadius: '0.2em',
                 border: 'none',
 
                 transition : 'color 500ms, background-color 500ms'
@@ -43,7 +42,7 @@ class LastWidget extends Component {
             >
                 <Col id={'last-widget'}
                      style={mode ? this.styles.dark : this.styles.light}
-                     className={"p-3"}>
+                     className={"p-3 shadow-shorter"}>
                     <h1 className={"t-size-1-5 fw-600"}>Last Measure</h1>
                     <Row className={'justify-content-center'}>
                         <i className={'align-self-center material-icons t-size-3'}>{iconName}</i>
