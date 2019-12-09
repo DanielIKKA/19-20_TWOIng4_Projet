@@ -2,7 +2,6 @@ import React, {Component} from "react";
 import {Col} from "react-bootstrap";
 import {SquareLoader} from "./SpinLoader";
 import ApiManager from "../models/ApiManager";
-import _ from 'lodash';
 import {EventEmitter} from 'events';
 
 let emitter = new EventEmitter();
@@ -27,7 +26,7 @@ class Fetcher {
         } else if (type === "sensors") {
             this.fetchNbSensor();
             // humidity
-        } else if (type === "measure") {
+        } else if (type === "measures") {
             this.fetchNbMeasure();
             //air pollution
         }
@@ -39,6 +38,28 @@ class Fetcher {
                 let raw = response.data;
                 this.data = raw.length;
                 emitter.emit(EVENT_FETCH_END_C, this.data);
+            })
+            .catch(err => {
+                console.error('pb', err);
+            })
+    }
+    fetchNbSensor() {
+        this.manager.fetchAllSensors()
+            .then(response => {
+                let raw = response.data;
+                this.data = raw.length;
+                emitter.emit(EVENT_FETCH_END_S, this.data);
+            })
+            .catch(err => {
+                console.error('pb', err);
+            })
+    }
+    fetchNbMeasure() {
+        this.manager.fetchAllMeasures()
+            .then(response => {
+                let raw = response.data;
+                this.data = raw.length;
+                emitter.emit(EVENT_FETCH_END_M, this.data);
             })
             .catch(err => {
                 console.error('pb', err);

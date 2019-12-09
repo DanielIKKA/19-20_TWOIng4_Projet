@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import Header from "../components/Header";
-import {Container} from "react-bootstrap";
+import {Col, Container, Row} from "react-bootstrap";
 import TotalWidget from "../components/TotalWidget";
 
 const styles = {
@@ -26,9 +26,11 @@ class Settings extends Component {
         return (
             <div id={'main-wrapper'} style={mode ? styles.dark : styles.light}>
                 <Header mode={mode} onSwitch={onSwitch} onRefresh={this.handleRefresh} onSearch={this.onSearch}/>
-                <Container fluid={true} id={'dashboard-wrapper'} className={'dashboard-content p-5 mt-5'}>
-                    <TotalWidget xs={4} type={"clients"}/>
-                </Container>
+                <Row fluid={true} id={'dashboard-wrapper'} className={'dashboard-content p-5 mt-5'}>
+                    <TotalWidget xs={4} md={4} type={"clients"}/>
+                    <TotalWidget xs={4} md={4} type={"sensors"}/>
+                    <TotalWidget xs={4} md={4} type={"measures"}/>
+                </Row>
             </div>
         );
     }
