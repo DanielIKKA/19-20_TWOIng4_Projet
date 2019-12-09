@@ -33,7 +33,7 @@ class TotalWidget extends Component {
             >
                 <Col id={'total-widget'}
                      className={'p-3 shadow-shorter text-center'}
-                     style={{height: 150}}
+                     style={{height: 200}}
                 >
                     <h1 className={'fw-300'}>Clients</h1>
                     {this.state.waiting ? this.squareLoader() : <h1>Cool</h1>}
