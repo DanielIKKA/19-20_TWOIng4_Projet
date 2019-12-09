@@ -7,24 +7,28 @@ const Style = {
     backgroundColor : "#212940",
     color : "white"
 };
+
 const InputStyle = {
     backgroundColor : "#434C67",
     color : "#DDDD"
 };
+
 const BtnStyles = {
     light : {
         fontSize : "0.85rem",
         backgroundColor : 'rgba(0,0,0,0)',
         color : "white",
         borderRadius : '100%',
-        border : 'none'
+        border : 'none',
+        boxShadow : 'none'
     },
     dark : {
         fontSize : "0.85rem",
         backgroundColor : 'rgba(0,0,0,0)',
         color : "white",
         borderRadius : '100%',
-        border : 'none'
+        border : 'none',
+        boxShadow : 'none'
     }
 };
 
@@ -36,7 +40,7 @@ class Header extends Component {
             <Col id={"header-wrapper"}
                  as={"header"}
                  style={Style}
-                 className={"d-flex justify-content-end align-content-center p-1"}>
+                 className={"d-flex justify-content-end align-content-center p-1 fixed-top"}>
 
                 <Col id={"search-input-wrapper"}
                      xs={6} md={4} lg={3}

@@ -2,16 +2,15 @@ const mongoose = require('mongoose');
 
 mongoose.Promise = global.Promise;
 const dbName = "db_project";
-const dbURL = `mongodb://localhost:27017/${dbName}`;
-
-//console.log(dbURL);
+const dbURL = `mongodb+srv://Api:qhN944DkyEgttYTA@cluster0-brc0m.mongodb.net/test?retryWrites=true&w=majority`;
 
 
 // connection
 mongoose.connect(dbURL, {
   useNewUrlParser: true,
   useFindAndModify : false,
-  useUnifiedTopology: true
+  useUnifiedTopology: true,
+  dbName : dbName
 });
 
 const db = mongoose.connection;
