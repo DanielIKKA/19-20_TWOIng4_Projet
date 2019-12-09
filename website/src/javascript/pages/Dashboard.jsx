@@ -8,7 +8,7 @@ import ReportWidget from "../components/ReportWidget";
 
 const styles = {
     light : {
-        backgroundColor : "white",
+        backgroundColor : "#EEEEEE",
         transition : 'color 500ms, background-color 500ms',
     },
     dark : {

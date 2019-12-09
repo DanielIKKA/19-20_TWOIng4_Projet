@@ -124,16 +124,15 @@ class ReportWidget extends Component {
     style = {
         light : {
             color : 'black',
-            backgroundColor : '#E9EAEC',
-            borderRadius: '0.4em',
-            boxShadow : '2px 2px 5px rgba(0,0,0,0.3)',
+            backgroundColor : '#FFFFFF',
+            borderRadius: '0.2em',
 
             transition : 'color 500ms, background-color 500ms'
         },
         dark : {
             color : 'white',
             backgroundColor : '#272F45',
-            borderRadius: '0.4em',
+            borderRadius: '0.2em',
 
             transition : 'color 500ms, background-color 500ms'
         }
@@ -147,6 +146,7 @@ class ReportWidget extends Component {
 
         this.state =  {
             selectedOption: null,
+            waiting : true
         };
     }
 
@@ -160,7 +160,7 @@ class ReportWidget extends Component {
         emitter.on(EVENT_FETCH_END, (data) => {
             this.data = data;
             // after for the re-updating of the view
-            this.setState({ selectedOption });
+            this.setState({ selectedOption, waiting : false });
         });
     };
 
@@ -168,7 +168,7 @@ class ReportWidget extends Component {
         return(
             <Col key={key} id={`detail-wrapper-${key}`} className={'px-2 my-2'}>
                 <Row className={'text-center'}>
-                    <Col as={'p'} className={'m-0 fw-600'}>{text}</Col>
+                    <Col as={'p'} className={'pl-5 m-0 fw-600 text-left text-truncate'}>{text}</Col>
                     <Col as={'p'} className={'m-0'}><span className={'fw-400'}>Total: </span>{number}</Col>
                     <Col as={'p'} className={'m-0 fw-200'}>{percent}%</Col>
                 </Row>
@@ -190,7 +190,7 @@ class ReportWidget extends Component {
                xs={xs} sm={sm} md={md} xl={xl} lg={lg}
                className={"my-3"}>
               <Col id={"report"}
-                   className={"p-3"}
+                   className={"p-3 shadow-shorter"}
                    style={mode ? this.style.dark : this.style.light}
               >
 

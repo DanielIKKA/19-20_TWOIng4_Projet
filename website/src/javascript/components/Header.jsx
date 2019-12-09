@@ -19,14 +19,16 @@ const BtnStyles = {
         backgroundColor : 'rgba(0,0,0,0)',
         color : "white",
         borderRadius : '100%',
-        border : 'none'
+        border : 'none',
+        boxShadow : 'none'
     },
     dark : {
         fontSize : "0.85rem",
         backgroundColor : 'rgba(0,0,0,0)',
         color : "white",
         borderRadius : '100%',
-        border : 'none'
+        border : 'none',
+        boxShadow : 'none'
     }
 };
 
