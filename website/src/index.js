@@ -9,10 +9,11 @@ import './stylesheets/index.css'
 
 //include Components
 import Dashboard from './javascript/pages/Dashboard';
-import App from './App'
+import Settings from './javascript/pages/Settings';
+import App from './App';
 
 const PathManager = (props) => {
-    const {mode, onSwitch, onRefresh} = props;
+    const {mode, onSwitch} = props;
     return (<Switch>
         <Route exact path={"/"}>
             <Redirect to="/dashboard"/>
@@ -20,7 +21,11 @@ const PathManager = (props) => {
         <Route exact path={"/dashboard"} render={() =>
             <Dashboard mode={mode}
                        onSwitch={onSwitch}
-                       onRefresh={onRefresh}
+            />
+        }/>
+        <Route exact path={"/settings"} render={() =>
+            <Settings mode={mode}
+                       onSwitch={onSwitch}
             />
         }/>
     </Switch>);

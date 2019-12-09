@@ -6,7 +6,6 @@ import ApiManager from "../models/ApiManager";
 import _ from 'lodash';
 import {EventEmitter} from 'events';
 
-
 let emitter = new EventEmitter();
 let EVENT_FETCH_END = 'fetch_end';
 
@@ -148,6 +147,10 @@ class ReportWidget extends Component {
             selectedOption: null,
             waiting : true
         };
+    }
+
+    componentWillUnmount() {
+        emitter.removeAllListeners();
     }
 
     componentDidMount() {

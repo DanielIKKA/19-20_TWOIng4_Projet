@@ -6,6 +6,7 @@ import LastWidget from "../components/LastWidget"
 import {ClockWidget} from "../components/ClockWidget";
 import ReportWidget from "../components/ReportWidget";
 
+
 const styles = {
     light : {
         backgroundColor : "#EEEEEE",
@@ -31,10 +32,6 @@ class Dashboard extends Component {
         console.log('on refresh');
     };
 
-    handleSettings = (emitter) => {
-        console.log(emitter.props.text);
-    };
-
     render() {
 
         const {onSwitch, mode} = this.props;
@@ -53,7 +50,7 @@ class Dashboard extends Component {
                         <Col id={'btn'} className={"d-flex justify-content-end align-items-center px-0"}>
                             <CustomBtn xs={8} sm={6} md={9} lg={8} xl={6}
                                        mode={mode} icon={"settings"} text={"Settings"}
-                                       onClick={this.handleSettings}
+                                       linkTo={'./settings'}
                                        textClass={"d-none d-md-block col-10"}>
                                 Settings
                             </CustomBtn>

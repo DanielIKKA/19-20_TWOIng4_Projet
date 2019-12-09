@@ -53,11 +53,10 @@
       }
 }
 
-
 .sk-cube-grid {
     width: 7em;
     height: 7em;
-    margin: 100px auto;
+    margin: auto auto;
 }
 
 .sk-cube-grid .sk-cube {

@@ -1,5 +1,5 @@
 import React , {Component} from 'react'
-import { Col } from 'react-bootstrap'
+import {Col} from 'react-bootstrap'
 import Switch from 'react-switch';
 import CustomBtn from "./CustomBtn";
 
@@ -33,6 +33,18 @@ const BtnStyles = {
 };
 
 class Header extends Component {
+
+    backHome() {
+        return(<CustomBtn iconName={'home'}
+                          className={"p-0 mx-2 mx-lg-1"}
+                          xs={2}
+                          icon={'home'}
+                          iconAlign={'text-right'}
+                          linkTo={'/'}
+                          styleLight={BtnStyles.light} styleDark={BtnStyles.dark}
+        />)
+    }
+
     render() {
         const {onSwitch, mode, onRefresh, onSearch} = this.props;
 
@@ -42,10 +54,12 @@ class Header extends Component {
                  style={Style}
                  className={"d-flex justify-content-end align-content-center p-1 fixed-top"}>
 
+                {this.backHome()}
                 <Col id={"search-input-wrapper"}
-                     xs={6} md={4} lg={3}
+                     xs={7} md={{span:5, offset:4}} lg={3}
                      className={"d-sm-flex align-items-center m-0 d-none"}>
-                    <CustomBtn xs={2} onClick={onSearch}
+                    <CustomBtn onClick={onSearch}
+                               xs={3}
                                className={"p-0 mx-2 mx-lg-1"}
                                icon={'search'}
                                styleLight={BtnStyles.light} styleDark={BtnStyles.dark}
