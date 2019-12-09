@@ -13,28 +13,28 @@ exports.findAll = (req, res) => {
       });
   };
   
-  // Find a single User with a id
-  exports.findOne = (req, res) => {
-    User.findById(req.params.userId)
-      .then(user => {
-        if (!user) {
-          return res.status(404).send({
-            message: 'User not found with id ' + req.params.userId
-          });
-        }
-        res.send(user);
-      })
-      .catch(err => {
-        if (err.kind === 'ObjectId') {
-          return res.status(404).send({
-            message: 'User not found with id ' + req.params.userId
-          });
-        }
-        return res.status(500).send({
-          message: 'Error retrieving user with id ' + req.params.userId
+// Find a single User with a id
+exports.findOne = (req, res) => {
+  User.findById(req.params.userId)
+    .then(user => {
+      if (!user) {
+        return res.status(404).send({
+          message: 'User not found with id ' + req.params.userId
         });
+      }
+      res.send(user);
+    })
+    .catch(err => {
+      if (err.kind === 'ObjectId') {
+        return res.status(404).send({
+          message: 'User not found with id ' + req.params.userId
+        });
+      }
+      return res.status(500).send({
+        message: 'Error retrieving user with id ' + req.params.userId
       });
-  };
+    });
+};
 
 // Update a User identified by the UserId in the request
 exports.update = (req, res) => {

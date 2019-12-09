@@ -6,10 +6,9 @@ import LastWidget from "../components/LastWidget"
 import ClockWidget from "../components/ClockWidget";
 import ReportWidget from "../components/ReportWidget";
 
-
 const styles = {
     light : {
-        backgroundColor : "white",
+        backgroundColor : "#EEEEEE",
         transition : 'color 500ms, background-color 500ms',
     },
     dark : {
@@ -43,8 +42,8 @@ class Dashboard extends Component {
         return (
             <div id={'main-wrapper'} style={mode ? styles.dark : styles.light}>
                 <Header mode={mode} onSwitch={onSwitch} onRefresh={this.handleRefresh} onSearch={this.onSearch}/>
-                <Container fluid={true} id={'dashboard-wrapper'} className={'dashboard-content'}>
-                    <Col id={"header-dashboard-wrapper"} className={"d-flex p-0"}>
+                <Container fluid={true} id={'dashboard-wrapper'} className={'dashboard-content px-5'}>
+                    <Col id={"header-dashboard-wrapper"} className={"d-flex p-0 mt-5"}>
 
                         <Col id={'titles'} xs={9} className={"my-5 p-0"}>
                             <h1 className={"fw-800 mb-0"}>Dashboard</h1>
@@ -61,21 +60,33 @@ class Dashboard extends Component {
                         </Col>
                     </Col>
                     <Row id={"widgets-wrapper"}>
-                        <LastWidget xs={6} md={3}
+                        <LastWidget xs={{span:12, order: 2}}
+                                    sm={{span:6, order: 1}}
+                                    md={{span:4, order:1}}
+                                    lg={{span:3, order: 1}}
                                     mode={mode} value={"35%"} iconName={"access_time"}
                                     darkBG={'rgb(218,83,103,0.5)'} lightBG={'rgb(218,83,103,1)'}
                         />
-                        <LastWidget xs={6} md={3}
+                        <LastWidget xs={{span:12, order: 3}}
+                                    sm={{span:6, order: 3}}
+                                    md={{span:4, order:2}}
+                                    lg={{span:3, order: 2}}
                                     mode={mode} value={"35%"} iconName={"invert_colors"}
                                     darkBG={'rgb(229,183,82,0.5)'} lightBG={'rgb(229,183,82,1)'}
                         />
-                        <LastWidget xs={6} md={3}
+                        <LastWidget xs={{span:12, order: 4}}
+                                    sm={{span:6, order: 4}}
+                                    md={{span:6, order:4, offset:3}}
+                                    lg={{span:3, order: 3, offset:0}}
                                     mode={mode} value={"35%"} iconName={"invert_colors"}
                                     darkBG={'rgb(100,110,205,0.5)'} lightBG={'rgb(100,110,205,1)'}
                         />
-                        <ClockWidget xs={6} md={3} mode={mode}/>
+                        <ClockWidget xs={{span:12, order: 1}}
+                                     sm={{span: 6, order: 2}}
+                                     md={{span:4, order:3}}
+                                     lg={{span:3, order: 4}} mode={mode}/>
 
-                        <ReportWidget xs={4} mode={mode}/>
+                        <ReportWidget xs={{span:12, order: 5}} md={6} lg={5} xl={4}  mode={mode}/>
                     </Row>
                 </Container>
             </div>

@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {Switch, Route} from 'react-router-dom'
+import {Switch, Route, Redirect} from 'react-router-dom'
 import * as serviceWorker from './javascript/serviceWorker';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -14,6 +14,9 @@ import App from './App'
 const PathManager = (props) => {
     const {mode, onSwitch, onRefresh} = props;
     return (<Switch>
+        <Route exact path={"/"}>
+            <Redirect to="/dashboard"/>
+        </Route>
         <Route exact path={"/dashboard"} render={() =>
             <Dashboard mode={mode}
                        onSwitch={onSwitch}

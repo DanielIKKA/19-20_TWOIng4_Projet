@@ -8,7 +8,7 @@ class CustomBtn extends Component {
             fontWeight : 400,
             backgroundColor : "#646ECD",
             color : "white",
-            borderRadius : '0.4em',
+            borderRadius : '0.2em',
             border : 'none'
         },
         dark : {
@@ -16,7 +16,7 @@ class CustomBtn extends Component {
             fontWeight : 400,
             backgroundColor : '#272F45',
             color : "white",
-            borderRadius : '0.4em',
+            borderRadius : '0.2em',
             border : 'none'
         }
     };
@@ -31,7 +31,7 @@ class CustomBtn extends Component {
         return (
           <Col id={'btn-wrapper-'+icon} xs={xs} sm={sm} md={md} lg={lg} xl={xl}
                as={'button'}
-               className={"d-flex align-items-center p-3"} style={mode ? this.styles.dark : this.styles.light}
+               className={"d-flex align-items-center p-3 shadow-shorter"} style={mode ? this.styles.dark : this.styles.light}
                onClick={() => onClick(this)}>
               <Col as={'i'}
                    className={"material-icons mx-1 p-0" +
