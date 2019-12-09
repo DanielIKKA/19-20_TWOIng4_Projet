@@ -156,11 +156,15 @@ class ReportWidget extends Component {
 
     handleChange = selectedOption => {
         this.fetcher.fetch(selectedOption);
+        this.setState({ selectedOption, waiting : true });
 
         emitter.on(EVENT_FETCH_END, (data) => {
             this.data = data;
-            // after for the re-updating of the view
-            this.setState({ selectedOption, waiting : false });
+
+            setTimeout(() => {
+                // after for the re-updating of the view
+                this.setState({waiting : false });
+            }, 2000);
         });
     };
 
@@ -200,8 +204,8 @@ class ReportWidget extends Component {
                       value={selectedOption} onChange={this.handleChange}
                       options={options} className={`my-3 text-dark`}
                   />
-                  
-                  <CustomPieChart data={this.data} mode={mode}/>
+
+                  <CustomPieChart data={this.data} mode={mode} waiting={this.state.waiting}/>
 
                   <Container style={{
                       overflowY :'scroll',

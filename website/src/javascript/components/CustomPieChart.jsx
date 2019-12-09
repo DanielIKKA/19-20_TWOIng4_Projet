@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import {PieChart, Pie, Cell, ResponsiveContainer, Sector} from 'recharts';
+import {SquareLoader} from "./SpinLoader";
 
 const COLORS = {
     dark: ['#FBB2F3', '#E5B752', '#45A196', '#78BEFF'],
@@ -47,36 +48,45 @@ export default class CustomPieChart extends PureComponent {
         });
     };
 
-    render() {
-        const {mode, data} = this.props;
+    squareLoader() {
+        const {mode} = this.props;
+        return(<SquareLoader mode={mode} bgLight={'#DA5367'} bgDark={'#78BEFF'}/>);
+    }
 
+    pieChart() {
+        const {mode, data} = this.props;
+        return (<ResponsiveContainer>
+            <PieChart>
+                <Pie
+                    data={data}
+                    cx={'50%'}
+                    cy={'50%'}
+                    innerRadius={85}
+                    outerRadius={95}
+                    paddingAngle={5}
+                    dataKey="value"
+
+                    activeIndex={this.state.activeIndex}
+                    activeShape={renderActiveShape}
+                    onMouseEnter={this.onPieEnter}
+                    onMouseOut={this.onPieOut}
+                >
+                    {
+                        data.map((entry, index) =>
+                            <Cell key={`cell-${index}`}
+                                  fill={ mode ? COLORS.dark[index % COLORS.dark.length] : COLORS.light[index % COLORS.light.length]}
+                                  strokeWidth={0}/>)
+                    }
+                </Pie>
+            </PieChart>
+        </ResponsiveContainer>);
+    }
+
+    render() {
+        const {waiting} = this.props;
         return (
             <div className={'mb-5 mt-5'} style={{width : '100%', height: 200}} >
-                <ResponsiveContainer>
-                    <PieChart>
-                        <Pie
-                            data={data}
-                            cx={'50%'}
-                            cy={'50%'}
-                            innerRadius={85}
-                            outerRadius={95}
-                            paddingAngle={5}
-                            dataKey="value"
-
-                            activeIndex={this.state.activeIndex}
-                            activeShape={renderActiveShape}
-                            onMouseEnter={this.onPieEnter}
-                            onMouseOut={this.onPieOut}
-                        >
-                            {
-                                data.map((entry, index) =>
-                                    <Cell key={`cell-${index}`}
-                                          fill={ mode ? COLORS.dark[index % COLORS.dark.length] : COLORS.light[index % COLORS.light.length]}
-                                          strokeWidth={0}/>)
-                            }
-                        </Pie>
-                    </PieChart>
-                </ResponsiveContainer>
+                {waiting ? this.squareLoader() : this.pieChart()}
             </div>
         );
     }
