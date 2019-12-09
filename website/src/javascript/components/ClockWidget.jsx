@@ -17,6 +17,7 @@ export const ClockWidget = (props) => {
             color: props.darkCol ? props.darkCol : "white",
             borderRadius: '0.2em',
             height : '100%',
+            border : '0.1em solid white',
 
             transition : 'color 500ms, background-color 500ms'
         }
