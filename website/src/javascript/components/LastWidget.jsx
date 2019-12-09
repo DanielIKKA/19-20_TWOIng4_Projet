@@ -1,6 +1,64 @@
 import React , {Component} from 'react'
 import {Col, Row} from "react-bootstrap";
 
+class Fetcher {
+    manager = new ApiManager();
+
+    // each data {name : __, value : ___, number: ___}
+    data = [];
+
+    fetch(iconName) {
+        // clear
+        this.data = 0;
+
+        // pays
+        if(iconName === "fireplace") {
+            this.fetchLastTemperature();
+            // temperature
+        } else if (iconName === "invert_colors") {
+            this.fetchLastHumidity();
+            // humidity
+        } else if (iconName === "eco") {
+            this.fetchLastAirPollution();
+            //air pollution
+        }
+    }
+
+    fetchLastTemperature() {
+        this.manager.fetchAllMeasures()
+            .then(response => {
+                let raw = response.data;
+                let allMeasure = _.orderBy(raw, ['creationDate', 'type'], ['desc', 'asc']);
+                this.data = _.find(allMeasure, function(o) { return o.type == 'temperature'; });  
+            })
+            .catch(err => {
+                console.error('pb', err);
+            })
+    }
+    fetchLastHumidity() {
+        this.manager.fetchAllMeasures()
+            .then(response => {
+                let raw = response.data;
+                let allMeasure = _.orderBy(raw, ['creationDate', 'type'], ['desc', 'asc']);
+                this.data = _.find(allMeasure, function(o) { return o.type == 'temperature'; });  
+            })
+            .catch(err => {
+                console.error('pb', err);
+            })
+    }
+    fetchLastAirPollution() {
+        this.manager.fetchAllMeasures()
+            .then(response => {
+                let raw = response.data;
+                let allMeasure = _.orderBy(raw, ['creationDate', 'type'], ['desc', 'asc']);
+                this.data = _.find(allMeasure, function(o) { return o.type == 'temperature'; });  
+            })
+            .catch(err => {
+                console.error('pb', err);
+            })
+    }
+}
+
 class LastWidget extends Component {
 
     constructor(props) {

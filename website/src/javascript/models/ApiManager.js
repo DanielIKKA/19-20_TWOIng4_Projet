@@ -12,7 +12,12 @@ class ApiManager {
 
     // find all sensors
     fetchAllSensors() {
-        return axios.get(`${API_URI}/users`);
+        return axios.get(`${API_URI}/sensors`);
+    }
+
+    // find all measure
+    fetchAllMeasures() {
+        return axios.get(`${API_URI}/measures`);
     }
 
     fetchOneUser(id) {
