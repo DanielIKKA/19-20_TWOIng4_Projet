@@ -1,5 +1,5 @@
 import React , {Component} from 'react'
-import {Col} from "react-bootstrap";
+import {Col, Row} from "react-bootstrap";
 
 class LastWidget extends Component {
 
@@ -45,10 +45,13 @@ class LastWidget extends Component {
                      style={mode ? this.styles.dark : this.styles.light}
                      className={"p-3"}>
                     <h1 className={"t-size-1-5 fw-600"}>Last Measure</h1>
-                    <h2 className={"t-size-4 fw-100 font-italic text-center m-0"}>
-                        <i className={'material-icons t-size-1'}>{iconName}</i>
-                        {value}
-                    </h2>
+                    <Row className={'justify-content-center'}>
+                        <i className={'align-self-center material-icons t-size-3'}>{iconName}</i>
+                        <h2 className={"t-size-4 fw-100 font-italic text-center m-0"}>
+                            {value}
+                        </h2>
+                    </Row>
+
                 </Col>
             </Col>
         );
