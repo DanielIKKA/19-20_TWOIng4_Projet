@@ -1,15 +1,23 @@
 import React , {Component} from 'react'
 import {Col, Row} from "react-bootstrap";
+import ApiManager from "../models/ApiManager";
+import _ from 'lodash';
+import {EventEmitter} from 'events';
+
+let emitter = new EventEmitter();
+let EVENT_FETCH_END_TEMP = 'fetch_end-last-widget-temperature';
+let EVENT_FETCH_END_HUM = 'fetch_end-last-widget-humidity';
+let EVENT_FETCH_END_AP = 'fetch_end-last-widget-airpollution';
 
 class Fetcher {
     manager = new ApiManager();
 
-    // each data {name : __, value : ___, number: ___}
-    data = [];
+    //  data : measure
+    data = {};
 
     fetch(iconName) {
         // clear
-        this.data = 0;
+        this.data = {};
 
         // pays
         if(iconName === "fireplace") {
@@ -29,7 +37,10 @@ class Fetcher {
             .then(response => {
                 let raw = response.data;
                 let allMeasure = _.orderBy(raw, ['creationDate', 'type'], ['desc', 'asc']);
-                this.data = _.find(allMeasure, function(o) { return o.type == 'temperature'; });  
+                let allTemperature  = _.filter(allMeasure, ['type', 'temperature']);
+                this.data = allTemperature[0];
+                console.log(this.data);
+                emitter.emit(EVENT_FETCH_END_TEMP, this.data);
             })
             .catch(err => {
                 console.error('pb', err);
@@ -40,18 +51,25 @@ class Fetcher {
             .then(response => {
                 let raw = response.data;
                 let allMeasure = _.orderBy(raw, ['creationDate', 'type'], ['desc', 'asc']);
-                this.data = _.find(allMeasure, function(o) { return o.type == 'temperature'; });  
+                let allTemperature  = _.filter(allMeasure, ['type', 'humidity']);
+                this.data = allTemperature[0];
+                console.log(this.data);
+                emitter.emit(EVENT_FETCH_END_HUM, this.data);
             })
             .catch(err => {
                 console.error('pb', err);
             })
     }
+
     fetchLastAirPollution() {
         this.manager.fetchAllMeasures()
             .then(response => {
                 let raw = response.data;
                 let allMeasure = _.orderBy(raw, ['creationDate', 'type'], ['desc', 'asc']);
-                this.data = _.find(allMeasure, function(o) { return o.type == 'temperature'; });  
+                let allTemperature  = _.filter(allMeasure, ['type', 'airPollution']);
+                this.data = allTemperature[0];
+                console.log(this.data);
+                emitter.emit(EVENT_FETCH_END_AP, this.data);
             })
             .catch(err => {
                 console.error('pb', err);
@@ -61,8 +79,17 @@ class Fetcher {
 
 class LastWidget extends Component {
 
+    
+    
+    fetcher = new Fetcher();
+    data = {};
+
     constructor(props) {
         super(props);
+
+        this.state = {
+            waiting : true
+        }
 
         this.styles = {
             light: {
@@ -87,15 +114,39 @@ class LastWidget extends Component {
     }
 
     time(s) {
-        return new Date(s * 1e3).toDateString().slice(-13, -5);
+        console.log(s);
+        const year = s.slice(0,4);
+        //const year = "2019";
+        const month = s.slice(5,7);
+        const day = s.slice(8,10);
+        const date = day + " " + month + " " + year;
+        //const date = s.slice(8,10) + " " + s.slice(5,7) + " " + s.slice(0,4);
+        return date;
+        //{this.time(this.data? this.data.creationDate : "2019-09-24T00:25:42Z")}
+    }
+    
+    componentDidMount () {
+        const {iconName} = this.props;
+       this.fetcher.fetch(iconName);
+        
+        emitter.on(iconName === "fireplace" ? EVENT_FETCH_END_TEMP 
+        : iconName === "invert_colors" ? EVENT_FETCH_END_HUM
+        : EVENT_FETCH_END_AP
+        , (data) => {
+            this.data = data;
+            this.setState({waiting : false});
+        })
+
     }
 
     render() {
         //Content
-        const { mode, value, iconName} = this.props;
+        const { mode, iconName} = this.props;
 
         //responsive
         const {xs, sm, md, xl, lg} = this.props;
+        //this.fetcher.fetch(iconName);
+
 
         return (
             <Col id={'lastWidget-wrapper'}
@@ -109,10 +160,11 @@ class LastWidget extends Component {
                     <Row className={'justify-content-center'}>
                         <i className={'align-self-center material-icons t-size-3'}>{iconName}</i>
                         <h2 className={"t-size-4 fw-100 font-italic text-center m-0"}>
-                            {value}
+                            {this.data ? this.data.value : ""} 
+                            {this.props.iconName === "fireplace" ? "°C" : "%"}
                         </h2>
                     </Row>
-                    <p className={'mt-3 mb-0 fw-300'}>Updated: {this.time(Date.now())}</p>
+                    <p className={'mt-3 mb-0 fw-300'}>Updated: {this.data? this.data.creationDate : "2019-11-21"}</p>
                 </Col>
             </Col>
         );
