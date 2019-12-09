@@ -4,8 +4,8 @@ import Select from "react-select";
 import CustomPieChart from "./CustomPieChart";
 import ApiManager from "../models/ApiManager";
 import _ from 'lodash';
-import {forEach} from "react-bootstrap/cjs/ElementChildren";
-let EventEmitter = require('events').EventEmitter;
+import {EventEmitter} from 'events';
+
 
 let emitter = new EventEmitter();
 let EVENT_FETCH_END = 'fetch_end';
@@ -48,11 +48,13 @@ class Fetcher {
 
                 allCountries.forEach(user => {
                     let dataFiltered = _.filter(raw, ['location', user.location]);
-                    this.data.push({
-                        name : _.startCase(user.location),
-                        value : _.round(dataFiltered.length/raw.length*100, 2),
-                        number : dataFiltered.length
-                    });
+                    if(dataFiltered.length > 0) {
+                        this.data.push({
+                            name : _.startCase(user.location),
+                            value : _.round(dataFiltered.length/raw.length*100, 2),
+                            number : dataFiltered.length
+                        });
+                    }
                 });
 
                 this.data = _.orderBy(this.data, ['value', 'name'], ['desc', 'asc']);
@@ -71,10 +73,18 @@ class Fetcher {
                 let betweenSixEight = _.filter(raw, elem => {return (elem.personsInHouse >= 6 && elem.personsInHouse <= 8)});
                 let overEight = _.filter(raw, elem => {return elem.personsInHouse > 8});
 
-                this.data.push({name:'Under 3', value: _.round(underThree.length/raw.length*100,2), number: underThree.length});
-                this.data.push({name:'Between 3 and 5', value: _.round(betweenThreeFive.length/raw.length*100,2), number: betweenThreeFive.length});
-                this.data.push({name:'Between 6 and 8', value: _.round(betweenSixEight.length/raw.length*100,2), number: betweenSixEight.length});
-                this.data.push({name:'Over 8', value: _.round(overEight.length/raw.length*100,2), number: overEight.length});
+                if(underThree.length > 0) {
+                    this.data.push({name:'Under 3', value: _.round(underThree.length/raw.length*100,2), number: underThree.length});
+                }
+                if(betweenThreeFive.length > 0) {
+                    this.data.push({name:'Between 3 and 5', value: _.round(betweenThreeFive.length/raw.length*100,2), number: betweenThreeFive.length});
+                }
+                if(betweenSixEight.length > 0) {
+                    this.data.push({name:'Between 6 and 8', value: _.round(betweenSixEight.length/raw.length*100,2), number: betweenSixEight.length});
+                }
+                if(overEight.length > 0) {
+                    this.data.push({name:'Over 8', value: _.round(overEight.length/raw.length*100,2), number: overEight.length});
+                }
 
                 emitter.emit(EVENT_FETCH_END, this.data);
             })
@@ -91,11 +101,14 @@ class Fetcher {
                 let sizes = _.uniqBy(raw, 'houseSize');
                 sizes.forEach(user => {
                     let dataFiltered = _.filter(raw, ['houseSize', user.houseSize]);
-                    this.data.push({
-                        name : _.startCase(user.houseSize),
-                        value : _.round(dataFiltered.length/raw.length*100, 2),
-                        number : dataFiltered.length
-                    });
+                    if(dataFiltered.length > 0) {
+                        this.data.push({
+                            name : _.startCase(user.houseSize),
+                            value : _.round(dataFiltered.length/raw.length*100, 2),
+                            number : dataFiltered.length
+                        });
+                    }
+
                 });
 
                 emitter.emit(EVENT_FETCH_END, this.data);
@@ -138,7 +151,7 @@ class ReportWidget extends Component {
     }
 
     componentDidMount() {
-        this.handleChange(options[0]);
+        this.handleChange(options[1]);
     }
 
     handleChange = selectedOption => {
@@ -151,14 +164,13 @@ class ReportWidget extends Component {
         });
     };
 
-
-
-    reportLine = (text, percent, key) => {
+    reportLine = (text, percent, number, key) => {
         return(
-            <Col key={key} className={'px-2 my-2'}>
+            <Col key={key} id={`detail-wrapper-${key}`} className={'px-2 my-2'}>
                 <Row className={'text-center'}>
-                    <Col as={'p'} className={'m-0'}>{text}</Col>
-                    <Col as={'p'} className={'m-0'}>{percent} %</Col>
+                    <Col as={'p'} className={'m-0 fw-600'}>{text}</Col>
+                    <Col as={'p'} className={'m-0'}><span className={'fw-400'}>Total: </span>{number}</Col>
+                    <Col as={'p'} className={'m-0 fw-200'}>{percent}%</Col>
                 </Row>
                 <Col as={'svg'} height={2}>
                     <rect width={'100%'} height={'50%'} style={this.props.mode ? {fill : 'white'} : {fill : 'black'}}/>
@@ -191,11 +203,23 @@ class ReportWidget extends Component {
 
                   <CustomPieChart data={this.data} mode={mode}/>
 
-                  <Container style={{overflow :'scroll', height : 200}} className={'p-0'}>
-                      {this.data.map((value, index) =>
-                          this.reportLine(value.name, value.value, index)
+                  <Container style={{
+                      overflowY :'scroll',
+                      overflowX : 'hidden',
+                      height : 150}}
+                             className={'p-0'}>
+                      {this.data.map((elem, index) =>
+                          this.reportLine(elem.name, elem.value, elem.number, index)
                       )}
                   </Container>
+                  <Row className={'mt-5 mb-2'}>
+                      <Col xs={{offset:4, span:4}} className={'p-2 text-center t-size-1-2 fw-500'}>
+                          Total: {_.sumBy(this.data, 'number')}
+                      </Col>
+                      <Col xs={{span:4}} className={'p-2 text-center t-size-1-2 fw-500'}>
+                          {_.round(_.sumBy(this.data, 'value'),0)}%
+                      </Col>
+                  </Row>
 
               </Col>
           </Col>
