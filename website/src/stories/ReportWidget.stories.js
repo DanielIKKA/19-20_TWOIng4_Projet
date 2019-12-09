@@ -8,20 +8,10 @@ storiesOf('Components/ReportWidget', module)
   .add('Dark mode', () => 
   <div>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"></link>
-    <ReportWidget xs={8} sm={6} md={9} lg={8} xl={6}
-        mode={true} icon={"settings"} text={"Settings"}
-        onClick={action("clicked")}
-        textClass={"d-none d-md-block col-10"}>
-            
-    </ReportWidget>
+    <ReportWidget xs={{span:12, order: 5}} md={6} lg={5} xl={4}  mode={true}/>
   </div>)
   .add('Light mode', () => 
   <div>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"></link>
-    <ReportWidget xs={8} sm={6} md={9} lg={8} xl={6}
-        mode={false} icon={"settings"} text={"Settings"}
-        onClick={action("clicked")}
-        textClass={"d-none d-md-block col-10"}>
-
-</ReportWidget>
+    <ReportWidget xs={{span:12, order: 5}} md={6} lg={5} xl={4}  mode={false}/>
 </div>)
