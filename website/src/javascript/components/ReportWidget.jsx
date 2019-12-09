@@ -200,7 +200,7 @@ class ReportWidget extends Component {
                       value={selectedOption} onChange={this.handleChange}
                       options={options} className={`my-3 text-dark`}
                   />
-
+                  
                   <CustomPieChart data={this.data} mode={mode}/>
 
                   <Container style={{
