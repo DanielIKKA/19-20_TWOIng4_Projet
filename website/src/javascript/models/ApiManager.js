@@ -25,6 +25,12 @@ class ApiManager {
     }
 
     createOneUser(data) {
+        console.log("data 0");
+        console.log(data[0]);
+        console.log("data 1");
+        console.log(data[1]);
+        console.log("data 2");
+        console.log(data[2]);
         return axios.put(`${API_URI}/users?location=${data[0]}&personsInHouse=${data[1]}&houseSize=${data[2]}}`);
     }
 }

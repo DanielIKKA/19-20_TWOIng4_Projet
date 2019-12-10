@@ -12,19 +12,23 @@ class Fetcher {
     manager = new ApiManager();
 
     //  dataClient : pays + personInHouse + houseSize
-    fetch(data = []) {
+    fetch(data) {
 
-        this.putAUser(data = []);
+        alert('data[0] = ' + data[0]);
+        alert('data[1] = ' + data[1]);
+        alert('data[2] = ' + data[2]);
+        this.putAUser(data);
     
         
     }
 
-    putAUser(data = []) {
+    putAUser(data) {
         this.manager.createOneUser(data)
             .then(response => {
                 alert('User ajouté !');
             })
             .catch(err => {
+                alert('j y arrive passsss');
                 console.error('pb', err);
             })
     }
