@@ -88,13 +88,13 @@ class Settings extends Component {
                 <Header mode={mode} onSwitch={onSwitch} onSearch={this.onSearch}/>
                 <Col id={'dashboard-wrapper'} className={'d-flex row dashboard-content p-5 mt-5 mx-0'}>
                     <TotalWidget xs={4} md={4} type={"clients"}
-                                 mode={mode}
-                                 linkTo={'/settings/clients'}/>
+                                 mode={mode} linkAdd={'./'}
+                                 linkTo={'/settings/clients'} linkAdd={'/settings/clients/add'}/>
                     <TotalWidget xs={4} md={4} type={"sensors"}
-                                 mode={mode}
+                                 mode={mode} linkAdd={'/settings/sensors/add'}
                                  linkTo={'/settings/sensors'}/>
                     <TotalWidget xs={4} md={4} type={"measures"}
-                                 mode={mode}
+                                 mode={mode} linkAdd={'/settings/measures/add'}
                     />
                 </Col>
                 <Switch>
