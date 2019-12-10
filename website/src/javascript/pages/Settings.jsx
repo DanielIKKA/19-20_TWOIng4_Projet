@@ -21,6 +21,7 @@ const styles = {
 
 class Settings extends Component {
 
+
     render() {
         const {onSwitch, mode} = this.props;
 
@@ -30,7 +31,7 @@ class Settings extends Component {
                 <Container fluid={true} id={'dashboard-wrapper'} className={'dashboard-content p-5 mt-5'}>
                     <TotalWidget xs={4}/>
                 </Container>
-                <FormWidget mode={true}/>
+                <FormWidget mode={mode} selectedOption={"sensor"}/>
             </div>
         );
     }

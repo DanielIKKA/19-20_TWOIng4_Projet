@@ -25,13 +25,35 @@ class ApiManager {
     }
 
     createOneUser(data) {
+        console.log("USER");
         console.log("data 0");
         console.log(data[0]);
         console.log("data 1");
         console.log(data[1]);
         console.log("data 2");
         console.log(data[2]);
-        return axios.put(`${API_URI}/users?location=${data[0]}&personsInHouse=${data[1]}&houseSize=${data[2]}}`);
+        return axios.put(`${API_URI}/users?location=${data[0]}&personsInHouse=${data[1]}&houseSize=${data[2]}`);
+    }
+
+    createOneSensor(data) {
+        console.log("SENSOR");
+        console.log("data 0");
+        console.log(data[0]);
+        console.log("data 1");
+        console.log(data[1]);
+        console.log(`${API_URI}/sensors?location=${data[1]}&userID=${data[0]}`);
+        return axios.put(`${API_URI}/sensors?location=${data[1]}&userID=${data[0]}`);
+    }
+
+    createOneMeasure(data) {
+        console.log("MEASURE");
+        console.log("data 0");
+        console.log(data[0]);
+        console.log("data 1");
+        console.log(data[1]);
+        console.log("data 2");
+        console.log(data[2]);
+        return axios.put(`${API_URI}/measures?type=${data[1]}&value=${data[2]}&sensorID=${data[0]}`);
     }
 }
 
