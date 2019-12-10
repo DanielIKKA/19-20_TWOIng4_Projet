@@ -3,8 +3,13 @@ import Header from "../components/Header";
 import {Container} from "react-bootstrap";
 import TotalWidget from "../components/TotalWidget";
 import Modal from "../components/Modal/index";
-import '@trendmicro/react-buttons/dist/react-buttons.css';
-export { Button, ButtonGroup, ButtonToolbar } from '@trendmicro/react-buttons';
+import Popup from "react-popup";
+import ReactDom from 'react-dom';
+
+ReactDom.render(
+    <Popup />,
+    document.getElementById('popupContainer')
+);
 
 const styles = {
     light : {
@@ -32,33 +37,9 @@ class Settings extends Component {
                 <Container fluid={true} id={'dashboard-wrapper'} className={'dashboard-content p-5 mt-5'}>
                     <TotalWidget xs={4}/>
                 </Container>
-                <Modal showOverlay={false}>
-                    <Modal.Header>
-                        <Modal.Title>
-                            Modal title
-                        </Modal.Title>
-                    </Modal.Header>
-                    <Modal.Body>
-                        <FormGroup>
-                            <Label>Email address</Label>
-                            <Input
-                                type="email"
-                                placeholder="Email"
-                            />
-                        </FormGroup>
-                        <FormGroup>
-                            <Label>Password</Label>
-                            <Input
-                                type="password"
-                                placeholder="Password"
-                            />
-                        </FormGroup>
-                    </Modal.Body>
-                    <Modal.Footer>
-                        <Button>Cancel</Button>
-                        <Button btnStyle="primary">Save</Button>
-                    </Modal.Footer>
-                </Modal>
+                <div>
+                    {Popup.alert('I am alert, nice to meet you')}
+                </div>
             </div>
         );
     }
