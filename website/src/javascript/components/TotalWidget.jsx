@@ -146,7 +146,6 @@ class TotalWidget extends Component {
         )
     }
     unlinked() {
-
         const {mode, type} = this.props;
         this.fetcher.fetch(type);
         return (
