@@ -3,6 +3,7 @@ import {Col, Row} from "react-bootstrap";
 import ApiManager from "../models/ApiManager";
 import _ from 'lodash';
 import {EventEmitter} from 'events';
+import {SquareLoader} from "./SpinLoader";
 
 let emitter = new EventEmitter();
 let EVENT_FETCH_END_TEMP = 'fetch_end-last-widget-temperature';
@@ -134,9 +135,12 @@ class LastWidget extends Component {
                 : EVENT_FETCH_END_AP
             , (data) => {
                 this.data = data;
-                if(this.isMount) {
-                    this.setState({waiting : false});
-                }
+                setTimeout(() => {
+                    if(this.isMount) {
+                        this.setState({waiting : false});
+                    }
+                }, 500);
+
             })
 
     }
@@ -144,9 +148,29 @@ class LastWidget extends Component {
         this.isMount = false;
     }
 
+    content() {
+        return(
+            <>
+                <Row className={'justify-content-center'}>
+                    <i className={'align-self-center material-icons t-size-3'}>{this.props.iconName}</i>
+                    <h2 className={"t-size-4 fw-100 font-italic text-center m-0"}>
+                        {this.data ? this.data.value : ""}
+                        {this.props.iconName === "wb_sunny" ? "°C" : "%"}
+                    </h2>
+                </Row>
+                <p className={'mt-3 mb-0 fw-300'}>Updated: {this.data? this.data.creationDate : "2019-11-21"}</p>
+            </>
+        )
+    }
+
+    squareLoader() {
+        const {mode} = this.props;
+        return(<SquareLoader mode={mode} bgLight={'#DA5367'} bgDark={'#78BEFF'}/>);
+    }
+
     render() {
         //Content
-        const { mode, iconName, subtitle} = this.props;
+        const { mode, subtitle} = this.props;
 
         //responsive
         const {xs, sm, md, xl, lg} = this.props;
@@ -162,14 +186,7 @@ class LastWidget extends Component {
                      style={mode ? this.styles.dark : this.styles.light}
                      className={"p-3 shadow-shorter"}>
                     <h1 className={"t-size-1-5 fw-600 mb-3"}>Last Measure <span className={'fw-300 t-size-0-9 font-italic'}><br/>{subtitle}</span></h1>
-                    <Row className={'justify-content-center'}>
-                        <i className={'align-self-center material-icons t-size-3'}>{iconName}</i>
-                        <h2 className={"t-size-4 fw-100 font-italic text-center m-0"}>
-                            {this.data ? this.data.value : ""} 
-                            {this.props.iconName === "wb_sunny" ? "°C" : "%"}
-                        </h2>
-                    </Row>
-                    <p className={'mt-3 mb-0 fw-300'}>Updated: {this.data? this.data.creationDate : "2019-11-21"}</p>
+                    {this.state.waiting ? this.squareLoader() : this.content()}
                 </Col>
             </Col>
         );

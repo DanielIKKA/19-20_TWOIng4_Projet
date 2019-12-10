@@ -5,6 +5,7 @@ import ApiManager from "../models/ApiManager";
 import {Route, Switch} from 'react-router-dom'
 import {SquareLoader} from "./SpinLoader";
 import CustomBtn from "./CustomBtn";
+import _ from "lodash";
 
 let emitter = new EventEmitter();
 let EVENT_FETCH_END = 'fetch_end';
@@ -77,7 +78,7 @@ class Fetcher {
     fetchNbSensor() {
         this.manager.fetchAllSensors()
             .then(response => {
-                emitter.emit(EVENT_FETCH_END, response.data);
+                emitter.emit(EVENT_FETCH_END, _.orderBy(response.data, ['creationDate'], ['desc']));
             })
             .catch(err => {
                 console.error('pb', err);
@@ -95,7 +96,6 @@ class Fetcher {
 }
 
 class Clients extends Component {
-
 
     clientTitle() {
         const {mode} = this.props;
@@ -142,11 +142,13 @@ class Clients extends Component {
 
 }
 const Sensors = (props) => {
-    const {data, onDelete} = props;
+    const {data} = props;
 
     function sensorTitle() {
+        const {mode} = props;
         return (
-            <Row className={'shadow-shorter bg-white mx-3 text-center align-items-center my-2'}>
+            <Row className={'shadow-shorter mx-3 text-center my-2'}
+                 style={mode? style.dark : style.light}>
                 <Col as={'h1'} className={'m-0 py-2'}>Location</Col>
                 <Col as={'h1'} className={'m-0 py-2'}>creationDate</Col>
                 <Col id={'offset'} xs={1}/>
@@ -154,8 +156,10 @@ const Sensors = (props) => {
         );
     }
     function sensorCell(data, index) {
+        const {mode, onDelete} = props;
         return (
-            <Row key={index} className={'shadow-shorter bg-white mx-3 text-center align-items-center my-1'}>
+            <Row key={index} className={'shadow-shorter mx-3 text-center align-items-center my-1'}
+                 style={mode? style.dark : style.light}>
                 <Col as={'p'} className={'m-0 py-2'}>{data.location}</Col>
                 <Col as={'p'} className={'m-0 py-2'}>{data.creationDate}</Col>
                 <CustomBtn xs={1}
@@ -220,7 +224,7 @@ class TabSettingsWidget extends Component {
                     <Clients data={this.data} mode={mode} onDelete={onDelete}/>
                 </Route>
                 <Route exact path={`/settings/${options[1]}`}>
-                    <Sensors data={this.data} mode={mode} onDelete={this.handleDelete}/>
+                    <Sensors data={this.data} mode={mode} onDelete={onDelete}/>
                 </Route>
             </Switch>
         )

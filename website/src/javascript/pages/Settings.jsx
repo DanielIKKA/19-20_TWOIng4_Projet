@@ -37,6 +37,15 @@ class Fetcher {
                 console.error('pb', err);
             })
     }
+    deleteSensor(sensor) {
+        this.manager.deleteOneSensor(sensor)
+            .then(response => {
+                emitter.emit(EVENT_DELETED);
+            })
+            .catch(err => {
+                console.error('pb', err);
+            })
+    }
 }
 
 class Settings extends Component {
@@ -52,11 +61,10 @@ class Settings extends Component {
         }
     }
 
-
     handleDelete = (data) => {
         const {pathname} = window.location;
 
-        pathname === '/settings/sensors' ? console.log(data)
+        pathname === '/settings/sensors' ? this.fetcher.deleteSensor(data)
             : this.fetcher.deleteUser(data);
     };
 

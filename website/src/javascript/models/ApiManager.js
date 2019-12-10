@@ -27,6 +27,10 @@ class ApiManager {
     fetchOneUser(id) {
         return axios.get(`${API_URI}/users/${id}`);
     }
+
+    deleteOneSensor(sensor) {
+        return axios.delete(`${API_URI}/sensors/${sensor._id}`)
+    }
 }
 
 export default ApiManager;
