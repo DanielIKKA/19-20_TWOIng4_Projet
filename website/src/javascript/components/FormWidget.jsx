@@ -1,14 +1,41 @@
 import React, {Component} from "react";
 import {Col} from "react-bootstrap";
 import {SquareLoader} from "./SpinLoader";
+import ApiManager from "../models/ApiManager";
+import _ from 'lodash';
+import {EventEmitter} from 'events';
+
+let emitter = new EventEmitter();
+let EVENT_PUT_END_USER = 'put_end-user';
 
 class Fetcher {
+    manager = new ApiManager();
 
+    //  dataClient : pays + personInHouse + houseSize
+    fetch(data = []) {
+
+        this.putAUser(data = []);
+    
+        
+    }
+
+    putAUser(data = []) {
+        this.manager.createOneUser(data)
+            .then(response => {
+                alert('User ajouté !');
+            })
+            .catch(err => {
+                console.error('pb', err);
+            })
+    }
 }
+
 
 const type = ['users', 'sensors', 'measures'];
 
 class FormWidget extends Component {
+
+    fetcher = new Fetcher();
 
     constructor(props) {
         super(props);
@@ -34,6 +61,7 @@ class FormWidget extends Component {
 
     handleSubmit(event) {
         alert('An essay was submitted: ' + this.state.valuePays + " " + this.state.valuePersonInHouse + " " + this.state.valueHouseSize);
+        this.fetcher.fetch([this.state.valuePays,this.state.valuePersonInHouse,this.state.valueHouseSize]);
         event.preventDefault();
       }
 

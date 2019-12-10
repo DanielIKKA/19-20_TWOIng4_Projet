@@ -23,6 +23,10 @@ class ApiManager {
     fetchOneUser(id) {
         return axios.get(`${API_URI}/users/${id}`);
     }
+
+    createOneUser(data) {
+        return axios.put(`${API_URI}/users?location=${data[0]}&personsInHouse=${data[1]}&houseSize=${data[2]}}`);
+    }
 }
 
 export default ApiManager;
