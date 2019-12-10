@@ -42,9 +42,6 @@ class Fetcher {
     //  dataClient : pays + personInHouse + houseSize
     get(data, myOption) {
 
-        alert('data[0] = ' + data[0]);
-        alert('data[1] = ' + data[1]);
-        alert('data[2] = ' + data[2]);
         if(myOption === option[0])
         {
             this.putAUser(data);
@@ -65,7 +62,6 @@ class Fetcher {
             .then(response => {
                 let raw = response.data;
                 raw.forEach(user => this.Alldata.push({value : user._id, label : user._id}));
-                console.log(this.Alldata);
                 emitter.emit(EVENT_GET_END_USER, this.Alldata);
             })
             .catch(err => {
@@ -78,7 +74,6 @@ class Fetcher {
             .then(response => {
                 let raw = response.data;
                 raw.forEach(sensor => this.Alldata.push({value : sensor._id, label : sensor._id}));
-                console.log(this.Alldata);
                 emitter.emit(EVENT_GET_END_SENSOR, this.Alldata);
             })
             .catch(err => {
@@ -88,30 +83,24 @@ class Fetcher {
     putAUser(data) {
         this.manager.createOneUser(data)
             .then(response => {
-                alert('User ajouté !');
             })
             .catch(err => {
-                alert('j y arrive passsss');
                 console.error('pb', err);
             })
     }
     putASensor(data) {
         this.manager.createOneSensor(data)
             .then(response => {
-                alert('Sensor ajouté !');
             })
             .catch(err => {
-                alert('j y arrive passsss');
                 console.error('pb', err);
             })
     }
     putAMeasure(data) {
         this.manager.createOneMeasure(data)
         .then(response => {
-            alert('Measure ajouté !');
         })
         .catch(err => {
-            alert('j y arrive passsss');
             console.error('pb', err);
         })
     }
@@ -165,13 +154,9 @@ class FormWidget extends Component {
         let nam = event.target.name;
         let val = event.target.value;
         this.setState({[nam]: val});
-
-        console.log(nam);
-        console.log(val);
     }
 
     handleChangeSelectSensor = selectedOptionSelect => {
-        //alert('selectedOptionSelect');
         this.setState({ selectedOptionSelect});
     };
 
@@ -184,19 +169,16 @@ class FormWidget extends Component {
     }
 
     handleSubmitUser(event) {
-        alert('An essay was submitted: ' + this.state.valuePays + " " + this.state.valuePersonInHouse + " " + this.state.valueHouseSize);
         this.fetcher.get([this.state.valuePays,this.state.valuePersonInHouse,this.state.valueHouseSize], option[0]);
         event.preventDefault();
       }
 
       handleSubmitSensor(event) {
-        alert('An essay was submitted: ' + this.state.selectedOptionSelect.value + " " + this.state.valueLocation);
         this.fetcher.get([this.state.selectedOptionSelect.value,this.state.valueLocation], option[1]);
         event.preventDefault();
       }
 
       handleSubmitMeasure(event) {
-        alert('An essay was submitted: ' + this.state.valueSensor.value + " " + this.state.valueType.value + " " + this.state.valueValue);
         this.fetcher.get([this.state.valueSensor.value,this.state.valueType.value,this.state.valueValue], option[2]);
         event.preventDefault();
       }
