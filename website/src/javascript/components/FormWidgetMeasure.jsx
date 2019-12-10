@@ -106,7 +106,7 @@ class Fetcher {
 }
 
 
-class FormWidget extends Component {
+class FormWidgetMeasure extends Component {
 
     fetcher = new Fetcher();
 
@@ -291,4 +291,4 @@ class FormWidget extends Component {
         );
     }
 }
-export default FormWidget;
+export default FormWidgetMeasure;

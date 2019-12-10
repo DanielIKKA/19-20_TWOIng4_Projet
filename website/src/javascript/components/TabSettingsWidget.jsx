@@ -6,6 +6,10 @@ import {Route, Switch} from 'react-router-dom'
 import {SquareLoader} from "./SpinLoader";
 import CustomBtn from "./CustomBtn";
 import _ from "lodash";
+import FormWidget from "./FormWidget";
+import LastWidget from "./LastWidget";
+import FormWidgetSensor from "./FormWidgetSensor";
+import FormWidgetMeasure from "./FormWidgetMeasure";
 
 let emitter = new EventEmitter();
 let EVENT_FETCH_END = 'fetch_end';
@@ -226,6 +230,15 @@ class TabSettingsWidget extends Component {
                 <Route exact path={`/settings/${options[1]}`}>
                     <Sensors data={this.data} mode={mode} onDelete={onDelete}/>
                 </Route>
+                <Route exact path={`/settings/clients/add`} render={(props) =>
+                    <FormWidget {...props} mode={mode} selectedOption={'user'}/>
+                }/>
+                <Route exact path={`/settings/${options[1]}/add`} render={(props) =>
+                    <FormWidgetSensor {...props} mode={mode} selectedOption={'sensor'}/>
+                }/>
+                <Route exact path={`/settings/${options[2]}/add`} render={(props) =>
+                    <FormWidgetMeasure {...props} mode={mode} selectedOption={'measure'}/>
+                }/>
             </Switch>
         )
     }
