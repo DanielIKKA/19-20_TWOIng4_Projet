@@ -4,6 +4,8 @@ import {Col} from "react-bootstrap";
 import TotalWidget from "../components/TotalWidget";
 import TabSettingsWidget from "../components/TabSettingsWidget";
 import {Route, Switch} from "react-router-dom";
+import ApiManager from "../models/ApiManager";
+import {EventEmitter} from "events";
 
 
 const styles = {
@@ -20,12 +22,59 @@ const styles = {
         backgroundColor : "#272F45"
     }
 };
+let emitter = new EventEmitter();
+let EVENT_DELETED = 'deleted';
+
+class Fetcher {
+    manager = new ApiManager();
+
+    deleteUser(user) {
+        this.manager.deleteOneUser(user)
+            .then(response => {
+                emitter.emit(EVENT_DELETED);
+            })
+            .catch(err => {
+                console.error('pb', err);
+            })
+    }
+}
 
 class Settings extends Component {
 
+    isMount = false;
+    fetcher = new Fetcher();
+
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            waiting : true
+        }
+    }
+
+
+    handleDelete = (data) => {
+        const {pathname} = window.location;
+
+        pathname === '/settings/sensors' ? console.log(data)
+            : this.fetcher.deleteUser(data);
+    };
+
+    componentDidMount() {
+        this.isMount = true;
+        emitter.on(EVENT_DELETED, () => {
+            if(this.isMount) {
+                this.setState({waiting : false});
+            }
+        });
+    }
+
+    componentWillUnmount() {
+        this.isMount = false;
+    }
+
     render() {
         const {mode, onSwitch} = this.props;
-
         return (
             <div id={'main-wrapper'} style={mode ? styles.dark : styles.light}>
                 <Header mode={mode} onSwitch={onSwitch} onSearch={this.onSearch}/>
@@ -41,9 +90,8 @@ class Settings extends Component {
                     />
                 </Col>
                 <Switch>
-                    <Route path={'/settings/:attr'} render={(props) => <TabSettingsWidget {...props} mode={this.props.mode}/>}/>
+                    <Route path={'/settings/:attr'} render={(props) => <TabSettingsWidget {...props} onDelete={this.handleDelete} mode={this.props.mode}/>}/>
                 </Switch>
-
             </div>
         );
     }

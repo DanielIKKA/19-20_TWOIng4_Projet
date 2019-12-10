@@ -74,7 +74,7 @@ class TotalWidget extends Component {
 
     fetcher = new Fetcher();
     data = {};
-    isMouted = false;
+    isMount = false;
 
     style = {
         light : {
@@ -104,7 +104,7 @@ class TotalWidget extends Component {
     }
 
     componentDidMount () {
-        this.isMouted = true;
+        this.isMount = true;
         const {type} = this.props;
         this.fetcher.fetch(type);
         
@@ -113,7 +113,7 @@ class TotalWidget extends Component {
                 : EVENT_FETCH_END_M
             , (data) => {
 
-            if(this.isMouted) {
+            if(this.isMount) {
                 this.data = data;
                 this.setState({waiting : false});
             }
@@ -121,7 +121,7 @@ class TotalWidget extends Component {
     }
 
     componentWillUnmount() {
-        this.isMouted = false;
+        this.isMount = false;
     }
 
     squareLoader() {
@@ -131,6 +131,7 @@ class TotalWidget extends Component {
 
     linked() {
         const {type, linkTo, mode} = this.props;
+        this.fetcher.fetch(type);
         return (
             <Link to={linkTo} className={'text-reset'}>
                 <Col id={'total-widget'}
@@ -145,6 +146,7 @@ class TotalWidget extends Component {
     unlinked() {
 
         const {mode, type} = this.props;
+        this.fetcher.fetch(type);
         return (
             <Col id={'total-widget-wrapper'}
                  className={'d-flex flex-column p-3 shadow-shorter text-center justify-content-center'}

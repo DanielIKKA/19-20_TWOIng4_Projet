@@ -20,6 +20,10 @@ class ApiManager {
         return axios.get(`${API_URI}/measures`);
     }
 
+    deleteOneUser(user) {
+        return axios.delete(`${API_URI}/users/${user._id}`)
+    }
+
     fetchOneUser(id) {
         return axios.get(`${API_URI}/users/${id}`);
     }
