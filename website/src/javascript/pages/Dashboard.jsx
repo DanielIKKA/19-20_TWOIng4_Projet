@@ -24,12 +24,13 @@ const styles = {
 
 class Dashboard extends Component {
 
+    isMount = false;
+
+    componentDidMount() { this.isMount = true }
+    componentWillUnmount() { this.isMount = false }
+
     onSearch = () => {
         console.log("onSearch");
-    };
-
-    handleRefresh = () => {
-        console.log('on refresh');
     };
 
     render() {
@@ -38,7 +39,7 @@ class Dashboard extends Component {
 
         return (
             <div id={'main-wrapper'} style={mode ? styles.dark : styles.light}>
-                <Header mode={mode} onSwitch={onSwitch} onRefresh={this.handleRefresh} onSearch={this.onSearch}/>
+                <Header mode={mode} onSwitch={onSwitch} onSearch={this.onSearch}/>
                 <Container fluid={true} id={'dashboard-wrapper'} className={'dashboard-content px-5'}>
                     <Col id={"header-dashboard-wrapper"} className={"d-flex p-0 mt-5"}>
 
@@ -61,21 +62,21 @@ class Dashboard extends Component {
                                     sm={{span:6, order: 1}}
                                     md={{span:4, order:1}}
                                     lg={{span:3, order: 1}}
-                                    mode={mode} iconName={"fireplace"}
+                                    mode={mode} iconName={"wb_sunny"} subtitle={'temperature'}
                                     darkBG={'rgb(218,83,103,0.5)'} lightBG={'rgb(218,83,103,1)'}
                         />
                         <LastWidget xs={{span:12, order: 3}}
                                     sm={{span:6, order: 3}}
                                     md={{span:4, order:2}}
                                     lg={{span:3, order: 2}}
-                                    mode={mode} iconName={"invert_colors"}
+                                    mode={mode} iconName={"invert_colors"} subtitle={'humidity'}
                                     darkBG={'rgb(229,183,82,0.5)'} lightBG={'rgb(229,183,82,1)'}
                         />
                         <LastWidget xs={{span:12, order: 4}}
                                     sm={{span:6, order: 4}}
                                     md={{span:6, order:4, offset:3}}
                                     lg={{span:3, order: 3, offset:0}}
-                                    mode={mode} iconName={"eco"}
+                                    mode={mode} iconName={"eco"} subtitle={'air pollution'}
                                     darkBG={'rgb(100,110,205,0.5)'} lightBG={'rgb(100,110,205,1)'}
                         />
                         <ClockWidget xs={{span:12, order: 1}}

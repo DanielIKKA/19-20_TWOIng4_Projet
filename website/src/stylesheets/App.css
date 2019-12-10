@@ -48,13 +48,13 @@
 
 @media (min-width: 450px) {
   :root {
-    font-size: 0.8rem !important;
+    font-size: 0.75rem !important;
   }
 }
 
 @media (min-width: 1200px) {
   :root {
-    font-size: 0.85rem !important;
+    font-size: 0.8rem !important;
   }
 }
 @media (min-width: 1600px) {

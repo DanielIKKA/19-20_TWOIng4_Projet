@@ -3,6 +3,7 @@ import {Col, Row} from "react-bootstrap";
 import ApiManager from "../models/ApiManager";
 import _ from 'lodash';
 import {EventEmitter} from 'events';
+import {SquareLoader} from "./SpinLoader";
 
 let emitter = new EventEmitter();
 let EVENT_FETCH_END_TEMP = 'fetch_end-last-widget-temperature';
@@ -20,7 +21,7 @@ class Fetcher {
         this.data = {};
 
         // pays
-        if(iconName === "fireplace") {
+        if(iconName === "wb_sunny") {
             this.fetchLastTemperature();
             // temperature
         } else if (iconName === "invert_colors") {
@@ -39,7 +40,6 @@ class Fetcher {
                 let allMeasure = _.orderBy(raw, ['creationDate', 'type'], ['desc', 'asc']);
                 let allTemperature  = _.filter(allMeasure, ['type', 'temperature']);
                 this.data = allTemperature[0];
-                console.log(this.data);
                 emitter.emit(EVENT_FETCH_END_TEMP, this.data);
             })
             .catch(err => {
@@ -53,7 +53,7 @@ class Fetcher {
                 let allMeasure = _.orderBy(raw, ['creationDate', 'type'], ['desc', 'asc']);
                 let allTemperature  = _.filter(allMeasure, ['type', 'humidity']);
                 this.data = allTemperature[0];
-                console.log(this.data);
+
                 emitter.emit(EVENT_FETCH_END_HUM, this.data);
             })
             .catch(err => {
@@ -68,7 +68,7 @@ class Fetcher {
                 let allMeasure = _.orderBy(raw, ['creationDate', 'type'], ['desc', 'asc']);
                 let allTemperature  = _.filter(allMeasure, ['type', 'airPollution']);
                 this.data = allTemperature[0];
-                console.log(this.data);
+
                 emitter.emit(EVENT_FETCH_END_AP, this.data);
             })
             .catch(err => {
@@ -78,18 +78,17 @@ class Fetcher {
 }
 
 class LastWidget extends Component {
-
-    
     
     fetcher = new Fetcher();
     data = {};
+    isMount = false;
 
     constructor(props) {
         super(props);
 
         this.state = {
             waiting : true
-        }
+        };
 
         this.styles = {
             light: {
@@ -106,6 +105,7 @@ class LastWidget extends Component {
                 backgroundColor: props.darkBG ? props.darkBG : "rgb(218,83,103,0.5)",
                 color: props.darkCol ? props.darkCol : "white",
                 borderRadius: '0.2em',
+                height : '100%',
                 border: 'none',
 
                 transition : 'color 500ms, background-color 500ms'
@@ -126,22 +126,51 @@ class LastWidget extends Component {
     }
     
     componentDidMount () {
+        this.isMount = true;
         const {iconName} = this.props;
-       this.fetcher.fetch(iconName);
-        
-        emitter.on(iconName === "fireplace" ? EVENT_FETCH_END_TEMP 
-        : iconName === "invert_colors" ? EVENT_FETCH_END_HUM
-        : EVENT_FETCH_END_AP
-        , (data) => {
-            this.data = data;
-            this.setState({waiting : false});
-        })
+        this.fetcher.fetch(iconName);
 
+        emitter.on(iconName === "wb_sunny" ? EVENT_FETCH_END_TEMP
+            : iconName === "invert_colors" ? EVENT_FETCH_END_HUM
+                : EVENT_FETCH_END_AP
+            , (data) => {
+                this.data = data;
+                setTimeout(() => {
+                    if(this.isMount) {
+                        this.setState({waiting : false});
+                    }
+                }, 500);
+
+            })
+
+    }
+    componentWillUnmount() {
+        this.isMount = false;
+    }
+
+    content() {
+        return(
+            <>
+                <Row className={'justify-content-center'}>
+                    <i className={'align-self-center material-icons t-size-3'}>{this.props.iconName}</i>
+                    <h2 className={"t-size-4 fw-100 font-italic text-center m-0"}>
+                        {this.data ? this.data.value : ""}
+                        {this.props.iconName === "wb_sunny" ? "°C" : "%"}
+                    </h2>
+                </Row>
+                <p className={'mt-3 mb-0 fw-300'}>Updated: {this.data? this.data.creationDate : "2019-11-21"}</p>
+            </>
+        )
+    }
+
+    squareLoader() {
+        const {mode} = this.props;
+        return(<SquareLoader mode={mode} bgLight={'#DA5367'} bgDark={'#78BEFF'}/>);
     }
 
     render() {
         //Content
-        const { mode, iconName} = this.props;
+        const { mode, subtitle} = this.props;
 
         //responsive
         const {xs, sm, md, xl, lg} = this.props;
@@ -156,15 +185,8 @@ class LastWidget extends Component {
                 <Col id={'last-widget'}
                      style={mode ? this.styles.dark : this.styles.light}
                      className={"p-3 shadow-shorter"}>
-                    <h1 className={"t-size-1-5 fw-600 mb-3"}>Last Measure</h1>
-                    <Row className={'justify-content-center'}>
-                        <i className={'align-self-center material-icons t-size-3'}>{iconName}</i>
-                        <h2 className={"t-size-4 fw-100 font-italic text-center m-0"}>
-                            {this.data ? this.data.value : ""} 
-                            {this.props.iconName === "fireplace" ? "°C" : "%"}
-                        </h2>
-                    </Row>
-                    <p className={'mt-3 mb-0 fw-300'}>Updated: {this.data? this.data.creationDate : "2019-11-21"}</p>
+                    <h1 className={"t-size-1-5 fw-600 mb-3"}>Last Measure <span className={'fw-300 t-size-0-9 font-italic'}><br/>{subtitle}</span></h1>
+                    {this.state.waiting ? this.squareLoader() : this.content()}
                 </Col>
             </Col>
         );

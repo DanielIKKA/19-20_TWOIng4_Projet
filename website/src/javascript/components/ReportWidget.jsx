@@ -139,6 +139,7 @@ class ReportWidget extends Component {
     data = [];
 
     fetcher = new Fetcher();
+    isMount = false;
 
     constructor(props) {
         super(props);
@@ -150,23 +151,29 @@ class ReportWidget extends Component {
     }
 
     componentWillUnmount() {
+        this.isMount = false;
         emitter.removeAllListeners();
     }
 
     componentDidMount() {
+        this.isMount = true;
         this.handleChange(options[1]);
     }
 
     handleChange = selectedOption => {
         this.fetcher.fetch(selectedOption);
-        this.setState({ selectedOption, waiting : true });
+        if(this.isMount) {
+            this.setState({ selectedOption, waiting : true });
+        }
 
         emitter.on(EVENT_FETCH_END, (data) => {
             this.data = data;
 
             setTimeout(() => {
                 // after for the re-updating of the view
-                this.setState({waiting : false });
+                if(this.isMount) {
+                    this.setState({waiting : false });
+                }
             }, 2000);
         });
     };

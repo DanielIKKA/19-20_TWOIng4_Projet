@@ -23,9 +23,9 @@ const PathManager = (props) => {
                        onSwitch={onSwitch}
             />
         }/>
-        <Route exact path={"/settings"} render={() =>
+        <Route path={"/settings"} render={() =>
             <Settings mode={mode}
-                       onSwitch={onSwitch}
+                      onSwitch={onSwitch}
             />
         }/>
     </Switch>);
