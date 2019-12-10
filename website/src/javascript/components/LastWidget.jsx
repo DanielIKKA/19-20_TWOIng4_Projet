@@ -165,7 +165,7 @@ class LastWidget extends Component {
 
     squareLoader() {
         const {mode} = this.props;
-        return(<SquareLoader mode={mode} bgLight={'#DA5367'} bgDark={'#78BEFF'}/>);
+        return(<SquareLoader mode={mode} bgLight={'#45A196'} bgDark={'#45A196'}/>);
     }
 
     render() {

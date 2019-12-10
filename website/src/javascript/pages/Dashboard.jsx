@@ -84,7 +84,7 @@ class Dashboard extends Component {
                                      md={{span:4, order:3}}
                                      lg={{span:3, order: 4}} mode={mode}/>
 
-                        <ReportWidget xs={{span:12, order: 5}} md={6} lg={5} xl={4}  mode={mode}/>
+                        <ReportWidget xs={{span:12, order: 5}} md={{span:6, offset:3}} mode={mode}/>
                     </Row>
                 </Container>
             </div>

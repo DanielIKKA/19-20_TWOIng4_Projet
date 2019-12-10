@@ -170,12 +170,12 @@ class FormWidget extends Component {
     handleSubmitUser(event) {
         this.fetcher.get([this.state.valuePays,this.state.valuePersonInHouse,this.state.valueHouseSize], option[0]);
         event.preventDefault();
-      }
+    }
 
-      handleSubmitSensor(event) {
+    handleSubmitSensor(event) {
         this.fetcher.get([this.state.selectedOptionSelect.value,this.state.valueLocation], option[1]);
         event.preventDefault();
-      }
+    }
 
       handleSubmitMeasure(event) {
         this.fetcher.get([this.state.valueSensor.value,this.state.valueType.value,this.state.valueValue], option[2]);
@@ -257,7 +257,7 @@ class FormWidget extends Component {
         );
     }
 
-    render() {
+    render(){
         const {xs, sm, md, lg, xl, mode} = this.props;
         const { selectedOption } = this.props;
         this.fetcher.fetch(selectedOption);
