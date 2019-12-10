@@ -2,7 +2,6 @@ import React, {Component} from "react";
 import {Col} from "react-bootstrap";
 import {SquareLoader} from "./SpinLoader";
 import ApiManager from "../models/ApiManager";
-import _ from 'lodash';
 import {EventEmitter} from 'events';
 import Select from "react-select";
 

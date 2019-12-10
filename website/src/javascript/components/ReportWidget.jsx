@@ -76,10 +76,10 @@ class Fetcher {
                     this.data.push({name:'Under 3', value: _.round(underThree.length/raw.length*100,2), number: underThree.length});
                 }
                 if(betweenThreeFive.length > 0) {
-                    this.data.push({name:'Between 3 and 5', value: _.round(betweenThreeFive.length/raw.length*100,2), number: betweenThreeFive.length});
+                    this.data.push({name:'Between 3 & 5', value: _.round(betweenThreeFive.length/raw.length*100,2), number: betweenThreeFive.length});
                 }
                 if(betweenSixEight.length > 0) {
-                    this.data.push({name:'Between 6 and 8', value: _.round(betweenSixEight.length/raw.length*100,2), number: betweenSixEight.length});
+                    this.data.push({name:'Between 6 & 8', value: _.round(betweenSixEight.length/raw.length*100,2), number: betweenSixEight.length});
                 }
                 if(overEight.length > 0) {
                     this.data.push({name:'Over 8', value: _.round(overEight.length/raw.length*100,2), number: overEight.length});

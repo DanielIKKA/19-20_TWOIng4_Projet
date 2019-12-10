@@ -113,10 +113,12 @@ class TotalWidget extends Component {
                 : EVENT_FETCH_END_M
             , (data) => {
 
-            if(this.isMount) {
-                this.data = data;
-                this.setState({waiting : false});
-            }
+            setTimeout(() =>{
+                if(this.isMount) {
+                    this.data = data;
+                        this.setState({waiting : false});
+                }
+            }, 1000);
         })
     }
 
