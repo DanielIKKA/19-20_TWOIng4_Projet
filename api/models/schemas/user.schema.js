@@ -20,7 +20,7 @@ const userSchema = new mongoose.Schema({
 userSchema.pre('findOneAndRemove', function(next) {
     // 'this' is the client being removed. Provide callbacks here if you want
     // to be notified of the calls' result.
-    Sensor.remove({userID : this._conditions._id}).exec();
+    Sensor.deleteMany({userID : this._conditions._id}).exec();
     next();
 });
 
