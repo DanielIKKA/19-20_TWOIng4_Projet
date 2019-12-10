@@ -24,14 +24,18 @@ class FormWidget extends Component {
     }
 
     handleChange(event) {
-        this.setState({valuePays: event.target.value});
+        let nam = event.target.name;
+        let val = event.target.value;
+        this.setState({[nam]: val});
+
+        console.log(nam);
+        console.log(val);
     }
-    handleChange1(event) {
-        this.setState({valuePersonInHouse: event.target.value});
-    }
-    handleChange2(event) {
-        this.setState({valueHouseSize: event.target.value});
-    }
+
+    handleSubmit(event) {
+        alert('An essay was submitted: ' + this.state.valuePays + " " + this.state.valuePersonInHouse + " " + this.state.valueHouseSize);
+        event.preventDefault();
+      }
 
     squareLoader() {
         const {mode} = this.props;
@@ -50,23 +54,23 @@ class FormWidget extends Component {
                      className={'p-3 shadow-shorter text-center'}
                      style={{height: 200}}
                 >
-                    <form action="#" method="post">
+                    <form onSubmit={this.handleSubmit}>
                         <table>
                             <tr>
                                 <td><label for="pays">Pays :</label></td>
-                                <td><input type="text" value={this.state.valuePays} onChange={this.handleChange}/></td>
+                                <td><input type="text"  name="valuePays" onChange={this.handleChange}/></td>
                             </tr>
                             <tr>
                                 <td><label for="personInHouse">nombre de Personne :</label></td>
-                                <td><input type="text" value={this.state.valuePersonInHouse} onChange={this.handleChange1}/></td>
+                                <td><input type="text" name="valuePersonInHouse" onChange={this.handleChange}/></td>
                             </tr>
                             <tr>
                                 <td><label for="HouseSize">House Size :</label></td>
-                                <td><input type="text" value={this.state.valueHouseSize} onChange={this.handleChange2}/></td>
+                                <td><input type="text" name="valueHouseSize" onChange={this.handleChange}/></td>
                             </tr>
                         </table>
                         <tr>
-                            <button>Inscription</button>
+                            <input type='Submit' />
                         </tr>
                     </form>
                 </Col>
