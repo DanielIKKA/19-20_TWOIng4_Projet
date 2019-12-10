@@ -31,7 +31,7 @@ class Settings extends Component {
                 <Container fluid={true} id={'dashboard-wrapper'} className={'dashboard-content p-5 mt-5'}>
                     <TotalWidget xs={4}/>
                 </Container>
-                <FormWidget mode={mode} selectedOption={"sensor"}/>
+                <FormWidget mode={mode} selectedOption={"measure"}/>
             </div>
         );
     }

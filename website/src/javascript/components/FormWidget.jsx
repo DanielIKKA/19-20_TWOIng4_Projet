@@ -11,10 +11,10 @@ let EVENT_GET_END_USER = 'put_end-user';
 let EVENT_GET_END_SENSOR = 'put_end-sensor';
 
 
-const options = [
-    { value: 'user1', label: 'user1' },
-    { value: 'user2', label: 'user2' },
-    { value: 'user3', label: 'user3' }
+const optionsType = [
+    { value: 'temperature', label: 'temperature' },
+    { value: 'humidity', label: 'humidity' },
+    { value: 'airPollution', label: 'air pollution' }
   ]
 
 const option = [
@@ -74,7 +74,16 @@ class Fetcher {
     }
     fetchAllSensor()
     {
-
+        this.manager.fetchAllSensors()
+            .then(response => {
+                let raw = response.data;
+                raw.forEach(sensor => this.Alldata.push({value : sensor._id, label : sensor._id}));
+                console.log(this.Alldata);
+                emitter.emit(EVENT_GET_END_SENSOR, this.Alldata);
+            })
+            .catch(err => {
+                console.error('pb', err);
+            })
     }
     putAUser(data) {
         this.manager.createOneUser(data)
@@ -125,14 +134,13 @@ class FormWidget extends Component {
             valuePersonInHouse: 0,
             valueHouseSize: "",
             //sensor
-            valueUser : "",
+            selectedOptionSelect : null,
             valueLocation : "",
             //measure
             valueSensor : 0,
             valueType : "",
             valueValue : 0,
             //select
-            selectedOptionSelect : null,
 
         }
         this.handleChange = this.handleChange.bind(this);
@@ -167,6 +175,14 @@ class FormWidget extends Component {
         this.setState({ selectedOptionSelect});
     };
 
+    handleChangeSelectMeasure = valueSensor => {
+        this.setState({ valueSensor});
+    }
+
+    handleChangeSelectMeasureSimple = valueType => {
+        this.setState({ valueType});
+    }
+
     handleSubmitUser(event) {
         alert('An essay was submitted: ' + this.state.valuePays + " " + this.state.valuePersonInHouse + " " + this.state.valueHouseSize);
         this.fetcher.get([this.state.valuePays,this.state.valuePersonInHouse,this.state.valueHouseSize], option[0]);
@@ -180,8 +196,8 @@ class FormWidget extends Component {
       }
 
       handleSubmitMeasure(event) {
-        alert('An essay was submitted: ' + this.state.valueSensor + " " + this.state.valueType + " " + this.state.valueValue);
-        this.fetcher.get([this.state.valueSensor,this.state.valueType,this.state.valueValue], option[2]);
+        alert('An essay was submitted: ' + this.state.valueSensor.value + " " + this.state.valueType.value + " " + this.state.valueValue);
+        this.fetcher.get([this.state.valueSensor.value,this.state.valueType.value,this.state.valueValue], option[2]);
         event.preventDefault();
       }
 
@@ -231,26 +247,25 @@ class FormWidget extends Component {
     }
 
     formMeasure() {
+        const { valueSensor, valueType } = this.state;
         return(
             <div>
                 <tr>
                     <td><label for="pays">Sensor ID :</label></td>
                     <td>
-                        <select value={this.state.valueSensor}>
-                            <option value="0">sensor1</option>
-                            <option value="1" selected>sensor2</option>
-                            <option value="2">sensor3</option>
-                        </select>
+                        <Select
+                            value={valueSensor} onChange={this.handleChangeSelectMeasure}
+                            options={this.data} className={`my-3 text-dark`}
+                        />
                     </td>
                 </tr>
                 <tr>
                     <td><label for="type">type :</label></td>
                     <td>
-                    <select value={this.state.valueSensor}>
-                            <option value="temperature">temperature</option>
-                            <option value="humidity" selected>humidity</option>
-                            <option value="airPollution">sensor3</option>
-                        </select>
+                        <Select
+                            value={valueType} onChange={this.handleChangeSelectMeasureSimple}
+                            options={optionsType} className={`my-3 text-dark`}
+                        />
                     </td>
                 </tr>
                 <tr>
