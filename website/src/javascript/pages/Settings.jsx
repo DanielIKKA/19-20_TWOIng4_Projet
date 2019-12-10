@@ -1,8 +1,10 @@
 import React, {Component} from "react";
 import Header from "../components/Header";
-import {Col, Container, Row} from "react-bootstrap";
+import {Col} from "react-bootstrap";
 import TotalWidget from "../components/TotalWidget";
-import TabWidget from "../components/TabWidget";
+import TabSettingsWidget from "../components/TabSettingsWidget";
+import {Route, Switch} from "react-router-dom";
+
 
 const styles = {
     light : {
@@ -27,14 +29,15 @@ class Settings extends Component {
         return (
             <div id={'main-wrapper'} style={mode ? styles.dark : styles.light}>
                 <Header mode={mode} onSwitch={onSwitch} onRefresh={this.handleRefresh} onSearch={this.onSearch}/>
-                <Row fluid={true} id={'dashboard-wrapper'} className={'dashboard-content p-5 mt-5'}>
-                    <TotalWidget xs={4} md={4} type={"clients"}/>
-                    <TotalWidget xs={4} md={4} type={"sensors"}/>
+                <Col id={'dashboard-wrapper'} className={'d-flex row dashboard-content p-5 mt-5 mx-0'}>
+                    <TotalWidget xs={4} md={4} type={"clients"} linkTo={'/settings/clients'}/>
+                    <TotalWidget xs={4} md={4} type={"sensors"} linkTo={'/settings/sensors'}/>
                     <TotalWidget xs={4} md={4} type={"measures"}/>
-                </Row>
-                <Row id={"widgets-wrapper"}>
-                    <TabWidget xs = {12} md = {12} type={"clients"}/>
-                </Row>
+                </Col>
+                <Switch>
+                    <Route path={'/settings/:attr'} component={TabSettingsWidget}/>
+                </Switch>
+
             </div>
         );
     }

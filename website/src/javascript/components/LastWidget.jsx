@@ -39,7 +39,6 @@ class Fetcher {
                 let allMeasure = _.orderBy(raw, ['creationDate', 'type'], ['desc', 'asc']);
                 let allTemperature  = _.filter(allMeasure, ['type', 'temperature']);
                 this.data = allTemperature[0];
-                console.log(this.data);
                 emitter.emit(EVENT_FETCH_END_TEMP, this.data);
             })
             .catch(err => {
@@ -53,7 +52,7 @@ class Fetcher {
                 let allMeasure = _.orderBy(raw, ['creationDate', 'type'], ['desc', 'asc']);
                 let allTemperature  = _.filter(allMeasure, ['type', 'humidity']);
                 this.data = allTemperature[0];
-                console.log(this.data);
+
                 emitter.emit(EVENT_FETCH_END_HUM, this.data);
             })
             .catch(err => {
@@ -68,7 +67,7 @@ class Fetcher {
                 let allMeasure = _.orderBy(raw, ['creationDate', 'type'], ['desc', 'asc']);
                 let allTemperature  = _.filter(allMeasure, ['type', 'airPollution']);
                 this.data = allTemperature[0];
-                console.log(this.data);
+
                 emitter.emit(EVENT_FETCH_END_AP, this.data);
             })
             .catch(err => {
@@ -78,18 +77,17 @@ class Fetcher {
 }
 
 class LastWidget extends Component {
-
-    
     
     fetcher = new Fetcher();
     data = {};
+    isMount = false;
 
     constructor(props) {
         super(props);
 
         this.state = {
             waiting : true
-        }
+        };
 
         this.styles = {
             light: {
@@ -126,17 +124,23 @@ class LastWidget extends Component {
     }
     
     componentDidMount () {
+        this.isMount = true;
         const {iconName} = this.props;
-       this.fetcher.fetch(iconName);
-        
-        emitter.on(iconName === "fireplace" ? EVENT_FETCH_END_TEMP 
-        : iconName === "invert_colors" ? EVENT_FETCH_END_HUM
-        : EVENT_FETCH_END_AP
-        , (data) => {
-            this.data = data;
-            this.setState({waiting : false});
-        })
+        this.fetcher.fetch(iconName);
 
+        emitter.on(iconName === "fireplace" ? EVENT_FETCH_END_TEMP
+            : iconName === "invert_colors" ? EVENT_FETCH_END_HUM
+                : EVENT_FETCH_END_AP
+            , (data) => {
+                this.data = data;
+                if(this.isMount) {
+                    this.setState({waiting : false});
+                }
+            })
+
+    }
+    componentWillUnmount() {
+        this.isMount = false;
     }
 
     render() {
