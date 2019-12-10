@@ -14,8 +14,23 @@ class FormWidget extends Component {
         super(props);
 
         this.state = {
-            waiting: false
+            waiting: false,
+            valuePays: "",
+            valuePersonInHouse: 0,
+            valueHouseSize: "",
         }
+        this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+    }
+
+    handleChange(event) {
+        this.setState({valuePays: event.target.value});
+    }
+    handleChange1(event) {
+        this.setState({valuePersonInHouse: event.target.value});
+    }
+    handleChange2(event) {
+        this.setState({valueHouseSize: event.target.value});
     }
 
     squareLoader() {
@@ -39,15 +54,15 @@ class FormWidget extends Component {
                         <table>
                             <tr>
                                 <td><label for="pays">Pays :</label></td>
-                                <td><input type="text" id="pays" name="user_pays"/></td>
+                                <td><input type="text" value={this.state.valuePays} onChange={this.handleChange}/></td>
                             </tr>
                             <tr>
                                 <td><label for="personInHouse">nombre de Personne :</label></td>
-                                <td><input type="text" id="personInHouse" name="user_personInHouse"/></td>
+                                <td><input type="text" value={this.state.valuePersonInHouse} onChange={this.handleChange1}/></td>
                             </tr>
                             <tr>
                                 <td><label for="HouseSize">House Size :</label></td>
-                                <td><input type="text" id="HouseSize" name="user_HouseSize"/></td>
+                                <td><input type="text" value={this.state.valueHouseSize} onChange={this.handleChange2}/></td>
                             </tr>
                         </table>
                         <tr>
