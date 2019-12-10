@@ -50,14 +50,14 @@ class CustomBtn extends Component {
 
     unLiked() {
         const {mode, xs, sm, md,lg, xl, text, icon, iconSize, textClass, iconAlign,
-            styleLight, styleDark} = this.props;
+            styleLight, styleDark, onClick} = this.props;
 
         if (styleLight) this.styles.light = styleLight;
         if (styleDark) this.styles.dark = styleDark;
 
         return (
             <Col id={'btn-wrapper-'+icon} xs={xs} sm={sm} md={md} lg={lg} xl={xl}
-                 as={'button'}
+                 as={'button'} onClick={onClick}
                  className={"d-flex align-items-center p-3 shadow-shorter"} style={mode ? this.styles.dark : this.styles.light}
             >
                 <Col as={'i'}
@@ -70,6 +70,7 @@ class CustomBtn extends Component {
 
     render() {
         const {linkTo} = this.props;
+        console.log(this.props.icon, linkTo);
         return(
             linkTo ? this.linked() : this.unLiked()
         );

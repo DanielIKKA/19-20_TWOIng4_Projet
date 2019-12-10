@@ -131,7 +131,7 @@ class TabSettingsWidget extends Component {
 
     fetcher = new Fetcher();
     data = [];
-    isMouted = false;
+    isMount = false;
 
     constructor(props) {
         super(props);
@@ -142,18 +142,18 @@ class TabSettingsWidget extends Component {
     }
 
     componentDidMount() {
-        this.isMouted = true;
+        this.isMount = true;
 
         emitter.on(EVENT_FETCH_END, (data) => {
             this.data = data;
-            if(this.isMouted) {
+            if(this.isMount) {
                 this.setState({waiting : false});
             }
         });
     }
 
     componentWillUnmount() {
-        this.isMouted = false;
+        this.isMount = false;
     }
 
     squareLoader() {

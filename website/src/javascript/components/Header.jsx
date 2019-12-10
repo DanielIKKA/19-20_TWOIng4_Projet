@@ -45,8 +45,12 @@ class Header extends Component {
         />)
     }
 
+    handleRefresh = () => {
+        window.location.reload();
+    };
+
     render() {
-        const {onSwitch, mode, onRefresh, onSearch} = this.props;
+        const {onSwitch, mode, onSearch} = this.props;
 
         return (
             <Col id={"header-wrapper"}
@@ -84,7 +88,7 @@ class Header extends Component {
 
                 <CustomBtn xs={2} sm={1}
                            icon={"refresh"} styleLight={BtnStyles.light} styleDark={BtnStyles.dark}
-                           onClick={onRefresh} iconSize={"t-size-1-8"} iconAlign={"text-justify"}
+                           onClick={this.handleRefresh} iconSize={"t-size-1-8"} iconAlign={"text-justify"}
                 />
 
             </Col>

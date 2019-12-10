@@ -24,12 +24,13 @@ const styles = {
 
 class Dashboard extends Component {
 
+    isMount = false;
+
+    componentDidMount() { this.isMount = true }
+    componentWillUnmount() { this.isMount = false }
+
     onSearch = () => {
         console.log("onSearch");
-    };
-
-    handleRefresh = () => {
-        console.log('on refresh');
     };
 
     render() {
@@ -38,7 +39,7 @@ class Dashboard extends Component {
 
         return (
             <div id={'main-wrapper'} style={mode ? styles.dark : styles.light}>
-                <Header mode={mode} onSwitch={onSwitch} onRefresh={this.handleRefresh} onSearch={this.onSearch}/>
+                <Header mode={mode} onSwitch={onSwitch} onSearch={this.onSearch}/>
                 <Container fluid={true} id={'dashboard-wrapper'} className={'dashboard-content px-5'}>
                     <Col id={"header-dashboard-wrapper"} className={"d-flex p-0 mt-5"}>
 

@@ -24,11 +24,11 @@ const styles = {
 class Settings extends Component {
 
     render() {
-        const {onSwitch, mode} = this.props;
+        const {mode, onSwitch} = this.props;
 
         return (
             <div id={'main-wrapper'} style={mode ? styles.dark : styles.light}>
-                <Header mode={mode} onSwitch={onSwitch} onRefresh={this.handleRefresh} onSearch={this.onSearch}/>
+                <Header mode={mode} onSwitch={onSwitch} onSearch={this.onSearch}/>
                 <Col id={'dashboard-wrapper'} className={'d-flex row dashboard-content p-5 mt-5 mx-0'}>
                     <TotalWidget xs={4} md={4} type={"clients"} linkTo={'/settings/clients'}/>
                     <TotalWidget xs={4} md={4} type={"sensors"} linkTo={'/settings/sensors'}/>
