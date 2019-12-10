@@ -30,12 +30,18 @@ class Settings extends Component {
             <div id={'main-wrapper'} style={mode ? styles.dark : styles.light}>
                 <Header mode={mode} onSwitch={onSwitch} onSearch={this.onSearch}/>
                 <Col id={'dashboard-wrapper'} className={'d-flex row dashboard-content p-5 mt-5 mx-0'}>
-                    <TotalWidget xs={4} md={4} type={"clients"} linkTo={'/settings/clients'}/>
-                    <TotalWidget xs={4} md={4} type={"sensors"} linkTo={'/settings/sensors'}/>
-                    <TotalWidget xs={4} md={4} type={"measures"}/>
+                    <TotalWidget xs={4} md={4} type={"clients"}
+                                 mode={mode}
+                                 linkTo={'/settings/clients'}/>
+                    <TotalWidget xs={4} md={4} type={"sensors"}
+                                 mode={mode}
+                                 linkTo={'/settings/sensors'}/>
+                    <TotalWidget xs={4} md={4} type={"measures"}
+                                 mode={mode}
+                    />
                 </Col>
                 <Switch>
-                    <Route path={'/settings/:attr'} component={TabSettingsWidget}/>
+                    <Route path={'/settings/:attr'} render={(props) => <TabSettingsWidget {...props} mode={this.props.mode}/>}/>
                 </Switch>
 
             </div>

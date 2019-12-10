@@ -10,6 +10,22 @@ let EVENT_FETCH_END = 'fetch_end';
 let EVENT_FETCH_START = 'fetch_start';
 
 const options = ['clients', 'sensors', 'measures'];
+const style = {
+    light : {
+        color : 'black',
+        backgroundColor : '#FFFFFF',
+        borderRadius: '0.2em',
+
+        transition : 'color 500ms, background-color 500ms'
+    },
+    dark : {
+        color : 'white',
+        backgroundColor : '#272F45',
+        borderRadius: '0.2em',
+
+        transition : 'color 500ms, background-color 500ms'
+    }
+};
 
 class Fetcher {
     manager = new ApiManager();
@@ -64,11 +80,12 @@ class Fetcher {
 }
 
 const Clients = (props) => {
-    const {data} = props;
+    const {data, mode} = props;
 
     function clientTitle() {
         return (
-            <Row className={'shadow-shorter bg-white mx-3 text-center my-2'}>
+            <Row className={'shadow-shorter mx-3 text-center my-2'}
+                 style={mode? style.dark : style.light}>
                 <Col as={'h1'} className={'m-0 py-2'}>Location</Col>
                 <Col as={'h1'} className={'m-0 py-2'}>Peroson In House</Col>
                 <Col as={'h1'} className={'m-0 py-2'}>House Size</Col>
@@ -101,9 +118,8 @@ const Sensors = (props) => {
     function sensorTitle() {
         return (
             <Row className={'shadow-shorter bg-white mx-3 text-center my-2'}>
-                <Col as={'h1'} className={'m-0 py-2'}>sdfqs</Col>
-                <Col as={'h1'} className={'m-0 py-2'}>Pdqfq</Col>
-                <Col as={'h1'} className={'m-0 py-2'}>qsdfq</Col>
+                <Col as={'h1'} className={'m-0 py-2'}>Location</Col>
+                <Col as={'h1'} className={'m-0 py-2'}>creationDate</Col>
             </Row>
         );
     }
@@ -162,13 +178,15 @@ class TabSettingsWidget extends Component {
     }
 
     router() {
+        const {mode} = this.props;
+
         return (
             <Switch>
                 <Route exact path={`/settings/${options[0]}`}>
-                    <Clients data={this.data}/>
+                    <Clients data={this.data} mode={mode}/>
                 </Route>
                 <Route exact path={`/settings/${options[1]}`}>
-                    <Sensors data={this.data}/>
+                    <Sensors data={this.data} mode={mode}/>
                 </Route>
             </Switch>
         )

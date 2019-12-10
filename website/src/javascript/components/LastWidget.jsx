@@ -20,7 +20,7 @@ class Fetcher {
         this.data = {};
 
         // pays
-        if(iconName === "fireplace") {
+        if(iconName === "wb_sunny") {
             this.fetchLastTemperature();
             // temperature
         } else if (iconName === "invert_colors") {
@@ -104,6 +104,7 @@ class LastWidget extends Component {
                 backgroundColor: props.darkBG ? props.darkBG : "rgb(218,83,103,0.5)",
                 color: props.darkCol ? props.darkCol : "white",
                 borderRadius: '0.2em',
+                height : '100%',
                 border: 'none',
 
                 transition : 'color 500ms, background-color 500ms'
@@ -128,7 +129,7 @@ class LastWidget extends Component {
         const {iconName} = this.props;
         this.fetcher.fetch(iconName);
 
-        emitter.on(iconName === "fireplace" ? EVENT_FETCH_END_TEMP
+        emitter.on(iconName === "wb_sunny" ? EVENT_FETCH_END_TEMP
             : iconName === "invert_colors" ? EVENT_FETCH_END_HUM
                 : EVENT_FETCH_END_AP
             , (data) => {
@@ -145,7 +146,7 @@ class LastWidget extends Component {
 
     render() {
         //Content
-        const { mode, iconName} = this.props;
+        const { mode, iconName, subtitle} = this.props;
 
         //responsive
         const {xs, sm, md, xl, lg} = this.props;
@@ -160,12 +161,12 @@ class LastWidget extends Component {
                 <Col id={'last-widget'}
                      style={mode ? this.styles.dark : this.styles.light}
                      className={"p-3 shadow-shorter"}>
-                    <h1 className={"t-size-1-5 fw-600 mb-3"}>Last Measure</h1>
+                    <h1 className={"t-size-1-5 fw-600 mb-3"}>Last Measure <span className={'fw-300 t-size-0-9 font-italic'}><br/>{subtitle}</span></h1>
                     <Row className={'justify-content-center'}>
                         <i className={'align-self-center material-icons t-size-3'}>{iconName}</i>
                         <h2 className={"t-size-4 fw-100 font-italic text-center m-0"}>
                             {this.data ? this.data.value : ""} 
-                            {this.props.iconName === "fireplace" ? "°C" : "%"}
+                            {this.props.iconName === "wb_sunny" ? "°C" : "%"}
                         </h2>
                     </Row>
                     <p className={'mt-3 mb-0 fw-300'}>Updated: {this.data? this.data.creationDate : "2019-11-21"}</p>

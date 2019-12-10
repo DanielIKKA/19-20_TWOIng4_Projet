@@ -70,7 +70,6 @@ class CustomBtn extends Component {
 
     render() {
         const {linkTo} = this.props;
-        console.log(this.props.icon, linkTo);
         return(
             linkTo ? this.linked() : this.unLiked()
         );

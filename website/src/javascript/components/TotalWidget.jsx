@@ -4,6 +4,7 @@ import {SquareLoader} from "./SpinLoader";
 import ApiManager from "../models/ApiManager";
 import {EventEmitter} from 'events';
 import {Link} from "react-router-dom";
+import _ from 'lodash';
 
 let emitter = new EventEmitter();
 let EVENT_FETCH_END_C = 'fetch_end-last-all-client';
@@ -75,6 +76,25 @@ class TotalWidget extends Component {
     data = {};
     isMouted = false;
 
+    style = {
+        light : {
+            color : 'black',
+            backgroundColor : '#FFFFFF',
+            borderRadius: '0.2em',
+            height: '25vh',
+
+            transition : 'color 500ms, background-color 500ms'
+        },
+        dark : {
+            color : 'white',
+            backgroundColor : '#272F45',
+            borderRadius: '0.2em',
+            height: '25vh',
+
+            transition : 'color 500ms, background-color 500ms'
+        }
+    };
+
     constructor(props) {
         super(props);
 
@@ -110,13 +130,13 @@ class TotalWidget extends Component {
     }
 
     linked() {
-        const {type, linkTo} = this.props;
+        const {type, linkTo, mode} = this.props;
         return (
-            <Link to={linkTo}>
+            <Link to={linkTo} className={'text-reset'}>
                 <Col id={'total-widget'}
-                     className={'d-flex flex-column p-3 shadow-shorter text-center justify-content-center bg-white'}
-                     style={{height: '25vh'}}>
-                    <h1 className={'fw-300'}>{type}</h1>
+                     className={'d-flex flex-column p-3 shadow-shorter text-center justify-content-center'}
+                     style={mode ? this.style.dark : this.style.light}>
+                    <h1 className={'fw-500 text-decoration-none'}>{_.startCase(type)}</h1>
                     {this.state.waiting ? this.squareLoader() : <h1 className={'t-size-3 fw-200'}>{this.data}</h1>}
                 </Col>
             </Link>
@@ -124,12 +144,12 @@ class TotalWidget extends Component {
     }
     unlinked() {
 
-        const {type} = this.props;
+        const {mode, type} = this.props;
         return (
-            <Col id={'total-widget'}
-                 className={'d-flex flex-column p-3 shadow-shorter text-center justify-content-center bg-white'}
-                 style={{height: '25vh'}}>
-                <h1 className={'fw-300'}>{type}</h1>
+            <Col id={'total-widget-wrapper'}
+                 className={'d-flex flex-column p-3 shadow-shorter text-center justify-content-center'}
+                 style={mode ? this.style.dark : this.style.light}>
+                <h1 className={'fw-500'}>{_.startCase(type)}</h1>
                 {this.state.waiting ? this.squareLoader() : <h1 className={'t-size-3 fw-200'}>{this.data}</h1>}
             </Col>
         )
@@ -142,7 +162,7 @@ class TotalWidget extends Component {
         return(
             <Col xs={xs} sm={sm} md={md} lg={lg} xl={xl}
                  id={'total-widget-wrapper'}
-                 className={'my-3'}>
+                 className={'my-3 hoverable-light'}>
                 {linkTo ? this.linked() : this.unlinked()}
             </Col>
         )
